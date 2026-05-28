@@ -182,3 +182,44 @@
     });
   });
 })();
+
+/* === FAQ ACCORDION === */
+(function initFAQ() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const trigger = item.querySelector('.faq-question');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      items.forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+
+    trigger.setAttribute('aria-expanded', 'false');
+    item.querySelector('.faq-answer').setAttribute('aria-hidden', 'true');
+  });
+
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.faq-item');
+    items.forEach(i => {
+      const open = i.classList.contains('open');
+      const trigger = i.querySelector('.faq-question');
+      const answer = i.querySelector('.faq-answer');
+      if (trigger) trigger.setAttribute('aria-expanded', String(open));
+      if (answer) answer.setAttribute('aria-hidden', String(!open));
+    });
+  });
+})();
+
+/* === STICKY MOBILE CALL BUTTON === */
+(function initStickyCall() {
+  const btn = document.createElement('a');
+  btn.href = 'tel:+18183389918';
+  btn.className = 'sticky-call-btn';
+  btn.setAttribute('aria-label', 'Call Master Door and Crown at (818) 338-9918');
+  btn.textContent = '📞 Call (818) 338-9918';
+  document.body.appendChild(btn);
+})();
