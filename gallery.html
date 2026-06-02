@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Custom Door Gallery | Master Door and Crown | Ventura County, CA</title>
-  <meta name="description" content="Browse our gallery of custom wood entry doors, interior doors, barn doors, and crown moulding built for Ventura County homes. Every door built from scratch.">
+  <meta name="description" content="Browse our gallery of custom wood entry doors, interior doors, barn doors, closet doors, and crown moulding built for Ventura County homes. Every door built from scratch.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -33,7 +33,7 @@
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="index.html" class="nav-link" data-page="index.html">Home</a>
         <a href="services.html" class="nav-link" data-page="services.html">Services</a>
-        <a href="gallery.html" class="nav-link" data-page="gallery.html">Gallery</a>
+        <a href="gallery.html" class="nav-link active" data-page="gallery.html">Gallery</a>
         <a href="about.html" class="nav-link" data-page="about.html">About</a>
         <a href="service-areas.html" class="nav-link" data-page="service-areas.html">Service Areas</a>
         <a href="contact.html" class="nav-link nav-cta" data-page="contact.html">Free Estimate</a>
@@ -58,129 +58,26 @@
     </div>
 
     <!-- GALLERY -->
-    <section class="gallery-section">
+    <section class="gallery-section" style="padding: 64px 0 80px;">
       <div class="container">
 
         <!-- FILTERS -->
         <div class="gallery-filters" role="group" aria-label="Filter gallery by door type">
           <button class="filter-btn active" data-filter="all">All Work</button>
-          <button class="filter-btn" data-filter="entry">Entry Doors</button>
-          <button class="filter-btn" data-filter="interior">Interior Doors</button>
-          <button class="filter-btn" data-filter="barn">Barn Doors</button>
-          <button class="filter-btn" data-filter="crown">Crown Moulding</button>
+          <button class="filter-btn" data-filter="entry-doors">Entry Doors</button>
+          <button class="filter-btn" data-filter="interior-doors">Interior Doors</button>
+          <button class="filter-btn" data-filter="barn-doors">Barn Doors</button>
+          <button class="filter-btn" data-filter="closet-doors">Closet Doors</button>
+          <button class="filter-btn" data-filter="crown-moulding">Crown Moulding</button>
         </div>
 
-        <!-- GALLERY GRID -->
-        <div class="gallery-grid" role="list">
+        <!-- GALLERY GRID — populated by JS below -->
+        <div class="gallery-grid" id="gallery-grid" role="list" aria-label="Gallery images"></div>
 
-          <!-- Entry Doors -->
-          <div class="gallery-item" data-category="entry" role="listitem" aria-label="View: Dark walnut entry door, Thousand Oaks">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="Custom dark walnut entry door with raised panel detail — Thousand Oaks">
-            <div class="gallery-caption">
-              <span class="caption-type">Entry Door</span>
-              Dark walnut raised-panel — Thousand Oaks
-            </div>
-          </div>
-
-          <div class="gallery-item" data-category="entry" role="listitem" aria-label="View: French entry door with glass, Ventura">
-            <img src="https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?auto=format&fit=crop&w=600&q=80" alt="Custom wood entry door with glass sidelites and transom — Ventura">
-            <div class="gallery-caption">
-              <span class="caption-type">Entry Door</span>
-              White oak with glass sidelites — Ventura
-            </div>
-          </div>
-
-          <!-- Interior Doors -->
-          <div class="gallery-item" data-category="interior" role="listitem" aria-label="View: Custom interior door suite, Camarillo">
-            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=600&q=80" alt="Custom solid wood interior door in a modern hallway — Camarillo">
-            <div class="gallery-caption">
-              <span class="caption-type">Interior Door</span>
-              Solid white oak 3-panel — Camarillo
-            </div>
-          </div>
-
-          <!-- Barn Doors -->
-          <div class="gallery-item" data-category="barn" role="listitem" aria-label="View: Reclaimed oak barn door, Ojai">
-            <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=600&q=80" alt="Custom sliding barn door with Z-brace detail on matte black hardware — Ojai">
-            <div class="gallery-caption">
-              <span class="caption-type">Barn Door</span>
-              Reclaimed oak Z-brace slider — Ojai
-            </div>
-          </div>
-
-          <!-- Crown Moulding -->
-          <div class="gallery-item" data-category="crown" role="listitem" aria-label="View: Crown moulding package, Simi Valley">
-            <img src="https://images.unsplash.com/photo-1558715831-046df7b32ca5?auto=format&fit=crop&w=600&q=80" alt="Custom crown moulding and door casing in a living room — Simi Valley">
-            <div class="gallery-caption">
-              <span class="caption-type">Crown Moulding</span>
-              Built-up crown profile, living room — Simi Valley
-            </div>
-          </div>
-
-          <!-- Entry Doors -->
-          <div class="gallery-item" data-category="entry" role="listitem" aria-label="View: Craftsman entry door, Moorpark">
-            <img src="https://images.unsplash.com/photo-1622372738946-62e02505feb3?auto=format&fit=crop&w=600&q=80" alt="Craftsman-style solid wood entry door with divided light window — Moorpark">
-            <div class="gallery-caption">
-              <span class="caption-type">Entry Door</span>
-              Craftsman-style Douglas fir — Moorpark
-            </div>
-          </div>
-
-          <!-- Interior Doors -->
-          <div class="gallery-item" data-category="interior" role="listitem" aria-label="View: Flush interior door set, Oxnard">
-            <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=600&q=80" alt="Contemporary flush solid wood interior doors in a renovated home — Oxnard">
-            <div class="gallery-caption">
-              <span class="caption-type">Interior Door</span>
-              Contemporary flat-panel, maple — Oxnard
-            </div>
-          </div>
-
-          <!-- Barn Doors -->
-          <div class="gallery-item" data-category="barn" role="listitem" aria-label="View: Double barn door set, Thousand Oaks">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Custom double barn door set for wide opening in open-plan home — Thousand Oaks">
-            <div class="gallery-caption">
-              <span class="caption-type">Barn Door</span>
-              Double-panel walnut bypass — Thousand Oaks
-            </div>
-          </div>
-
-          <!-- Entry Doors -->
-          <div class="gallery-item" data-category="entry" role="listitem" aria-label="View: Arched entry door, Santa Paula">
-            <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=600&q=80" alt="Custom arched-top entry door in red mahogany — Santa Paula">
-            <div class="gallery-caption">
-              <span class="caption-type">Entry Door</span>
-              Arched-top mahogany — Santa Paula
-            </div>
-          </div>
-
-          <!-- Crown Moulding -->
-          <div class="gallery-item" data-category="crown" role="listitem" aria-label="View: Wainscot and trim package, Camarillo">
-            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=80" alt="Custom wainscoting, chair rail, and crown moulding package — Camarillo">
-            <div class="gallery-caption">
-              <span class="caption-type">Crown Moulding</span>
-              Wainscot &amp; chair rail package — Camarillo
-            </div>
-          </div>
-
-          <!-- Interior Doors -->
-          <div class="gallery-item" data-category="interior" role="listitem" aria-label="View: French interior doors, Ventura">
-            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80" alt="Custom French interior door set with divided glass — Ventura">
-            <div class="gallery-caption">
-              <span class="caption-type">Interior Door</span>
-              French door set with glass — Ventura
-            </div>
-          </div>
-
-          <!-- Barn Doors -->
-          <div class="gallery-item" data-category="barn" role="listitem" aria-label="View: Modern panel barn door, Port Hueneme">
-            <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?auto=format&fit=crop&w=600&q=80" alt="Modern flat-panel barn door in white oak — Port Hueneme">
-            <div class="gallery-caption">
-              <span class="caption-type">Barn Door</span>
-              Modern flat-panel white oak — Port Hueneme
-            </div>
-          </div>
-
-        </div><!-- end .gallery-grid -->
+        <!-- Empty state (shown when a filter has 0 images) -->
+        <p id="gallery-empty" style="display:none; color: var(--color-text-light); text-align:center; padding: 48px 0; font-size: 1rem;">
+          No images in this category yet. Check back soon.
+        </p>
 
       </div>
     </section>
@@ -200,6 +97,8 @@
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
     <div class="lightbox-inner">
       <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+      <button class="lightbox-prev" id="lb-prev" aria-label="Previous image">&#8592;</button>
+      <button class="lightbox-next" id="lb-next" aria-label="Next image">&#8594;</button>
       <img class="lightbox-img" src="" alt="">
       <p class="lightbox-caption"></p>
     </div>
@@ -254,5 +153,167 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <script>
+  /* ============================================================
+     Gallery — R2 image config
+     Update IMAGE_COUNTS when images are added/removed from R2.
+     To remove an image: delete from R2, decrement count here.
+     ============================================================ */
+  const R2_BASE = 'https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev';
+
+  const IMAGE_COUNTS = {
+    'entry-doors':    0,
+    'interior-doors': 0,
+    'barn-doors':     0,
+    'closet-doors':   0,
+    'crown-moulding': 0
+  };
+
+  const CATEGORY_LABELS = {
+    'entry-doors':    'Entry Doors',
+    'interior-doors': 'Interior Doors',
+    'barn-doors':     'Barn Doors',
+    'closet-doors':   'Closet Doors',
+    'crown-moulding': 'Crown Moulding'
+  };
+
+  /* ── Build gallery items ── */
+  const grid = document.getElementById('gallery-grid');
+
+  Object.entries(IMAGE_COUNTS).forEach(([cat, count]) => {
+    for (let i = 1; i <= count; i++) {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.dataset.category = cat;
+      item.dataset.index = String(i);
+      item.setAttribute('role', 'listitem');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + i);
+
+      const img = document.createElement('img');
+      img.src = R2_BASE + '/' + cat + '/' + i + '.webp';
+      img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA ' + i;
+      img.loading = 'lazy';
+      img.width = 600;
+
+      const caption = document.createElement('div');
+      caption.className = 'gallery-caption';
+      caption.innerHTML = '<span class="caption-type">' + CATEGORY_LABELS[cat] + '</span>';
+
+      item.appendChild(img);
+      item.appendChild(caption);
+      grid.appendChild(item);
+    }
+  });
+
+  /* ── Filter ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const emptyMsg = document.getElementById('gallery-empty');
+
+  function applyFilter(filter) {
+    const items = grid.querySelectorAll('.gallery-item');
+    let visible = 0;
+    items.forEach(item => {
+      const show = filter === 'all' || item.dataset.category === filter;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    emptyMsg.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  /* ── Lightbox ── */
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = lightbox.querySelector('.lightbox-img');
+  const lbCap    = lightbox.querySelector('.lightbox-caption');
+  const lbPrev   = document.getElementById('lb-prev');
+  const lbNext   = document.getElementById('lb-next');
+  const lbClose  = lightbox.querySelector('.lightbox-close');
+
+  let lbItems = [];
+  let lbIdx   = 0;
+
+  function lbOpen(items, idx) {
+    lbItems = items;
+    lbIdx   = idx;
+    lbShow();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    lbImg.focus();
+  }
+
+  function lbShow() {
+    const item = lbItems[lbIdx];
+    const img  = item.querySelector('img');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCap.textContent = img.alt;
+    /* Hide arrows when only 1 image in category */
+    const single = lbItems.length <= 1;
+    lbPrev.style.display = single ? 'none' : '';
+    lbNext.style.display = single ? 'none' : '';
+  }
+
+  function lbClose_() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function lbPrevFn() {
+    lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length;
+    lbShow();
+  }
+
+  function lbNextFn() {
+    lbIdx = (lbIdx + 1) % lbItems.length;
+    lbShow();
+  }
+
+  /* Click on gallery item */
+  grid.addEventListener('click', e => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    /* Browse within same category */
+    const cat = item.dataset.category;
+    const siblings = [...grid.querySelectorAll('.gallery-item[data-category="' + cat + '"]')];
+    const idx = siblings.indexOf(item);
+    lbOpen(siblings, idx);
+  });
+
+  /* Keyboard open */
+  grid.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const item = e.target.closest('.gallery-item');
+      if (!item) return;
+      e.preventDefault();
+      item.click();
+    }
+  });
+
+  lbPrev.addEventListener('click', lbPrevFn);
+  lbNext.addEventListener('click', lbNextFn);
+  lbClose.addEventListener('click', lbClose_);
+
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) lbClose_();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape')     lbClose_();
+    if (e.key === 'ArrowLeft')  lbPrevFn();
+    if (e.key === 'ArrowRight') lbNextFn();
+  });
+  </script>
+
 </body>
 </html>
