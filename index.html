@@ -358,7 +358,7 @@
         <div class="services-grid">
           <a href="services.html#entry-doors" class="service-tile">
             <div class="service-tile-img">
-              <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/entry-doors/1.webp" alt="Custom wood entry door — Master Door and Crown, Ventura County CA" loading="lazy">
+              <img src="https://images.masterdoorandcrown.com/entry-doors/1.webp" alt="Custom wood entry door — Master Door and Crown, Ventura County CA" loading="lazy">
             </div>
             <div class="service-tile-body">
               <span class="service-tile-tag">Signature Service</span>
@@ -369,7 +369,7 @@
           </a>
           <a href="services.html#interior-doors" class="service-tile">
             <div class="service-tile-img">
-              <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/interior-doors/1.webp" alt="Custom interior wood door — Master Door and Crown, Ventura County CA" loading="lazy">
+              <img src="https://images.masterdoorandcrown.com/interior-doors/1.webp" alt="Custom interior wood door — Master Door and Crown, Ventura County CA" loading="lazy">
             </div>
             <div class="service-tile-body">
               <span class="service-tile-tag">Interior</span>
@@ -380,7 +380,7 @@
           </a>
           <a href="services.html#barn-doors" class="service-tile">
             <div class="service-tile-img">
-              <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/barn-doors/1.webp" alt="Custom sliding barn door — Master Door and Crown, Ventura County CA" loading="lazy">
+              <img src="https://images.masterdoorandcrown.com/barn-sliding-doors/1.webp" alt="Custom sliding barn door — Master Door and Crown, Ventura County CA" loading="lazy">
             </div>
             <div class="service-tile-body">
               <span class="service-tile-tag">Sliding</span>
@@ -391,7 +391,7 @@
           </a>
           <a href="services.html#crown-moulding" class="service-tile">
             <div class="service-tile-img">
-              <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/crown-moulding/1.webp" alt="Custom crown moulding and wood trim — Master Door and Crown, Ventura County CA" loading="lazy">
+              <img src="https://images.masterdoorandcrown.com/crown-woodwork/1.webp" alt="Custom crown moulding and wood trim — Master Door and Crown, Ventura County CA" loading="lazy">
             </div>
             <div class="service-tile-body">
               <span class="service-tile-tag">Finish Work</span>
@@ -417,7 +417,7 @@
             <a href="about.html" class="btn btn-outline" style="margin-top: 12px;">Our Story</a>
           </div>
           <div class="about-teaser-img">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/entry-doors/1.webp" alt="Custom entry door built by Master Door and Crown — Ventura County CA" loading="lazy">
+            <img src="https://images.masterdoorandcrown.com/entry-doors/1.webp" alt="Custom entry door built by Master Door and Crown — Ventura County CA" loading="lazy">
           </div>
         </div>
       </div>
@@ -429,26 +429,7 @@
         <span class="section-label">Recent Work</span>
         <h2 class="section-title">Built for Real Homes</h2>
         <p class="section-subtitle">Every project in our gallery was built from raw lumber for a specific client. No catalog. No compromises.</p>
-        <div class="gallery-preview-grid">
-          <div class="gallery-preview-item">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/entry-doors/1.webp" alt="Custom entry door by Master Door and Crown — Ventura County CA" loading="lazy">
-          </div>
-          <div class="gallery-preview-item">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/entry-doors/2.webp" alt="Custom entry door by Master Door and Crown — Ventura County CA" loading="lazy">
-          </div>
-          <div class="gallery-preview-item">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/interior-doors/1.webp" alt="Custom interior door by Master Door and Crown — Ventura County CA" loading="lazy">
-          </div>
-          <div class="gallery-preview-item">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/barn-doors/1.webp" alt="Custom barn door by Master Door and Crown — Ventura County CA" loading="lazy">
-          </div>
-          <div class="gallery-preview-item">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/barn-doors/2.webp" alt="Custom barn door by Master Door and Crown — Ventura County CA" loading="lazy">
-          </div>
-          <div class="gallery-preview-item">
-            <img src="https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev/crown-moulding/1.webp" alt="Custom crown moulding by Master Door and Crown — Ventura County CA" loading="lazy">
-          </div>
-        </div>
+        <div class="gallery-preview-grid" id="gallery-preview-grid"></div>
         <div class="gallery-teaser-footer">
           <a href="gallery.html" class="btn btn-outline">See Full Gallery</a>
         </div>
@@ -563,5 +544,63 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <script>
+  /* ============================================================
+     Homepage — R2 image config
+     Update IMAGE_COUNTS when images are added/removed from R2.
+     ============================================================ */
+  const R2_BASE = 'https://images.masterdoorandcrown.com';
+
+  const IMAGE_COUNTS = {
+    'entry-doors':        0,  /* TODO: fill in actual count */
+    'interior-doors':     0,  /* TODO: fill in actual count */
+    'barn-sliding-doors': 0,  /* TODO: fill in actual count */
+    'closet-doors':       0,  /* TODO: fill in actual count */
+    'crown-woodwork':     0   /* TODO: fill in actual count */
+  };
+
+  function getRandomImages(category, count, total) {
+    if (total <= 0 || count <= 0) return [];
+    const nums = Array.from({ length: total }, (_, i) => i + 1);
+    for (let i = nums.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+    }
+    return nums.slice(0, Math.min(count, total)).map(n =>
+      ({ src: R2_BASE + '/' + category + '/' + n + '.webp', category })
+    );
+  }
+
+  const previewImages = [
+    ...getRandomImages('entry-doors',        2, IMAGE_COUNTS['entry-doors']),
+    ...getRandomImages('barn-sliding-doors', 1, IMAGE_COUNTS['barn-sliding-doors']),
+    ...getRandomImages('interior-doors',     1, IMAGE_COUNTS['interior-doors']),
+    ...getRandomImages('closet-doors',       1, IMAGE_COUNTS['closet-doors']),
+    ...getRandomImages('crown-woodwork',     1, IMAGE_COUNTS['crown-woodwork'])
+  ];
+
+  const ALT_LABELS = {
+    'entry-doors':        'Custom entry door',
+    'interior-doors':     'Custom interior door',
+    'barn-sliding-doors': 'Custom barn door',
+    'closet-doors':       'Custom closet door',
+    'crown-woodwork':     'Custom crown moulding'
+  };
+
+  const previewGrid = document.getElementById('gallery-preview-grid');
+  if (previewGrid && previewImages.length > 0) {
+    previewImages.forEach(({ src, category }) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-preview-item';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = (ALT_LABELS[category] || 'Custom woodwork') + ' by Master Door and Crown \u2014 Ventura County CA';
+      img.loading = 'lazy';
+      item.appendChild(img);
+      previewGrid.appendChild(item);
+    });
+  }
+  </script>
 </body>
 </html>

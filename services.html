@@ -68,8 +68,9 @@
     <section class="service-detail-section" id="entry-doors">
       <div class="container">
         <div class="service-detail-inner">
-          <div class="service-detail-img">
-            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" alt="Custom hand-crafted wood entry door with panel detailing and dark finish">
+          <div class="service-detail-img service-img-grid-wrap">
+            <div class="service-img-grid" id="svc-grid-entry-doors"></div>
+            <p class="svc-gallery-link"><a href="gallery.html?filter=entry-doors">See more in gallery &rarr;</a></p>
           </div>
           <div class="service-detail-text">
             <span class="service-badge">Signature Service</span>
@@ -98,8 +99,9 @@
     <section class="service-detail-section" id="interior-doors">
       <div class="container">
         <div class="service-detail-inner reverse">
-          <div class="service-detail-img">
-            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Custom solid wood interior door in a contemporary home hallway">
+          <div class="service-detail-img service-img-grid-wrap">
+            <div class="service-img-grid" id="svc-grid-interior-doors"></div>
+            <p class="svc-gallery-link"><a href="gallery.html?filter=interior-doors">See more in gallery &rarr;</a></p>
           </div>
           <div class="service-detail-text">
             <span class="service-badge">Interior</span>
@@ -127,8 +129,9 @@
     <section class="service-detail-section" id="barn-doors">
       <div class="container">
         <div class="service-detail-inner">
-          <div class="service-detail-img">
-            <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&w=800&q=80" alt="Custom sliding barn door on matte black hardware — modern farmhouse style">
+          <div class="service-detail-img service-img-grid-wrap">
+            <div class="service-img-grid" id="svc-grid-barn-sliding-doors"></div>
+            <p class="svc-gallery-link"><a href="gallery.html?filter=barn-sliding-doors">See more in gallery &rarr;</a></p>
           </div>
           <div class="service-detail-text">
             <span class="service-badge">Sliding</span>
@@ -157,8 +160,9 @@
     <section class="service-detail-section" id="crown-moulding">
       <div class="container">
         <div class="service-detail-inner reverse">
-          <div class="service-detail-img">
-            <img src="https://images.unsplash.com/photo-1558715831-046df7b32ca5?auto=format&fit=crop&w=800&q=80" alt="Hand-crafted crown moulding and door casing detail in a living room">
+          <div class="service-detail-img service-img-grid-wrap">
+            <div class="service-img-grid" id="svc-grid-crown-woodwork"></div>
+            <p class="svc-gallery-link"><a href="gallery.html?filter=crown-woodwork">See more in gallery &rarr;</a></p>
           </div>
           <div class="service-detail-text">
             <span class="service-badge">Finish Work</span>
@@ -243,5 +247,146 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+      <button class="lightbox-prev" id="lb-prev" aria-label="Previous image">&#8592;</button>
+      <button class="lightbox-next" id="lb-next" aria-label="Next image">&#8594;</button>
+      <img class="lightbox-img" src="" alt="">
+      <p class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script>
+  /* ============================================================
+     Services — R2 image config + random 6-image grids
+     Update IMAGE_COUNTS when images are added/removed from R2.
+     ============================================================ */
+  const R2_BASE = 'https://images.masterdoorandcrown.com';
+
+  const IMAGE_COUNTS = {
+    'entry-doors':        0,  /* TODO: fill in actual count */
+    'interior-doors':     0,  /* TODO: fill in actual count */
+    'barn-sliding-doors': 0,  /* TODO: fill in actual count */
+    'crown-woodwork':     0   /* TODO: fill in actual count */
+  };
+
+  function getRandomImages(category, count, total) {
+    if (total <= 0 || count <= 0) return [];
+    const nums = Array.from({ length: total }, (_, i) => i + 1);
+    for (let i = nums.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+    }
+    return nums.slice(0, Math.min(count, total)).map(n =>
+      R2_BASE + '/' + category + '/' + n + '.webp'
+    );
+  }
+
+  const SERVICE_GRIDS = [
+    { gridId: 'svc-grid-entry-doors',        category: 'entry-doors' },
+    { gridId: 'svc-grid-interior-doors',     category: 'interior-doors' },
+    { gridId: 'svc-grid-barn-sliding-doors', category: 'barn-sliding-doors' },
+    { gridId: 'svc-grid-crown-woodwork',     category: 'crown-woodwork' }
+  ];
+
+  const CATEGORY_LABELS = {
+    'entry-doors':        'Entry Doors',
+    'interior-doors':     'Interior Doors',
+    'barn-sliding-doors': 'Barn \u0026 Sliding Doors',
+    'crown-woodwork':     'Crown \u0026 Woodwork'
+  };
+
+  SERVICE_GRIDS.forEach(({ gridId, category }) => {
+    const gridEl = document.getElementById(gridId);
+    if (!gridEl) return;
+    const total = IMAGE_COUNTS[category] || 0;
+    const urls = getRandomImages(category, 6, total);
+
+    if (urls.length === 0) {
+      gridEl.parentElement.style.display = 'none';
+      return;
+    }
+
+    urls.forEach((src, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'grid-img-wrap';
+      wrap.dataset.category = category;
+      wrap.dataset.src = src;
+
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Custom ' + CATEGORY_LABELS[category] + ' by Master Door and Crown \u2014 Ventura County, CA';
+      img.loading = 'lazy';
+
+      wrap.appendChild(img);
+      gridEl.appendChild(wrap);
+    });
+  });
+
+  /* ── Service page lightbox ── */
+  const lightbox  = document.getElementById('lightbox');
+  const lbImg     = lightbox.querySelector('.lightbox-img');
+  const lbCap     = lightbox.querySelector('.lightbox-caption');
+  const lbPrev    = document.getElementById('lb-prev');
+  const lbNext    = document.getElementById('lb-next');
+  const lbCloseEl = lightbox.querySelector('.lightbox-close');
+
+  let lbItems = [];
+  let lbIdx   = 0;
+
+  function lbOpen(items, idx) {
+    lbItems = items;
+    lbIdx   = idx;
+    lbShow();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function lbShow() {
+    const wrap = lbItems[lbIdx];
+    const img  = wrap.querySelector('img');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCap.textContent = CATEGORY_LABELS[wrap.dataset.category] || '';
+    const single = lbItems.length <= 1;
+    lbPrev.style.display = single ? 'none' : '';
+    lbNext.style.display = single ? 'none' : '';
+  }
+
+  function lbCloseFn() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  document.querySelectorAll('.service-img-grid').forEach(grid => {
+    grid.addEventListener('click', e => {
+      const wrap = e.target.closest('.grid-img-wrap');
+      if (!wrap) return;
+      const siblings = [...grid.querySelectorAll('.grid-img-wrap')];
+      lbOpen(siblings, siblings.indexOf(wrap));
+    });
+  });
+
+  lbPrev.addEventListener('click', () => {
+    lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length;
+    lbShow();
+  });
+  lbNext.addEventListener('click', () => {
+    lbIdx = (lbIdx + 1) % lbItems.length;
+    lbShow();
+  });
+  lbCloseEl.addEventListener('click', lbCloseFn);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) lbCloseFn(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape')     lbCloseFn();
+    if (e.key === 'ArrowLeft')  { lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length; lbShow(); }
+    if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbItems.length; lbShow(); }
+  });
+  </script>
 </body>
 </html>

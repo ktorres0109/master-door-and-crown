@@ -61,14 +61,18 @@
     <section class="gallery-section" style="padding: 64px 0 80px;">
       <div class="container">
 
-        <!-- FILTERS -->
-        <div class="gallery-filters" role="group" aria-label="Filter gallery by door type">
-          <button class="filter-btn active" data-filter="all">All Work</button>
-          <button class="filter-btn" data-filter="entry-doors">Entry Doors</button>
-          <button class="filter-btn" data-filter="interior-doors">Interior Doors</button>
-          <button class="filter-btn" data-filter="barn-doors">Barn Doors</button>
-          <button class="filter-btn" data-filter="closet-doors">Closet Doors</button>
-          <button class="filter-btn" data-filter="crown-moulding">Crown Moulding</button>
+        <!-- FILTER DROPDOWN -->
+        <div class="gallery-filter-wrap">
+          <label for="gallery-filter" class="sr-only">Filter by category</label>
+          <select id="gallery-filter" class="gallery-filter-select" aria-label="Filter gallery by door type">
+            <option value="all">All Work</option>
+            <option value="entry-doors">Entry Doors</option>
+            <option value="interior-doors">Interior Doors</option>
+            <option value="barn-sliding-doors">Barn &amp; Sliding Doors</option>
+            <option value="closet-doors">Closet Doors</option>
+            <option value="room-dividers">Room Dividers</option>
+            <option value="crown-woodwork">Crown &amp; Woodwork</option>
+          </select>
         </div>
 
         <!-- GALLERY GRID — populated by JS below -->
@@ -160,58 +164,74 @@
      Update IMAGE_COUNTS when images are added/removed from R2.
      To remove an image: delete from R2, decrement count here.
      ============================================================ */
-  const R2_BASE = 'https://pub-REPLACE_AFTER_ENABLING_PUBLIC_ACCESS.r2.dev';
+  const R2_BASE = 'https://images.masterdoorandcrown.com';
 
   const IMAGE_COUNTS = {
-    'entry-doors':    0,
-    'interior-doors': 0,
-    'barn-doors':     0,
-    'closet-doors':   0,
-    'crown-moulding': 0
+    'entry-doors':        0,  /* TODO: fill in actual count */
+    'interior-doors':     0,  /* TODO: fill in actual count */
+    'barn-sliding-doors': 0,  /* TODO: fill in actual count */
+    'closet-doors':       0,  /* TODO: fill in actual count */
+    'room-dividers':      0,  /* TODO: fill in actual count */
+    'crown-woodwork':     0   /* TODO: fill in actual count */
   };
 
   const CATEGORY_LABELS = {
-    'entry-doors':    'Entry Doors',
-    'interior-doors': 'Interior Doors',
-    'barn-doors':     'Barn Doors',
-    'closet-doors':   'Closet Doors',
-    'crown-moulding': 'Crown Moulding'
+    'entry-doors':        'Entry Doors',
+    'interior-doors':     'Interior Doors',
+    'barn-sliding-doors': 'Barn \u0026 Sliding Doors',
+    'closet-doors':       'Closet Doors',
+    'room-dividers':      'Room Dividers',
+    'crown-woodwork':     'Crown \u0026 Woodwork'
   };
 
-  /* ── Build gallery items ── */
+  /* ── Build interleaved all-images array (newest first per category) ── */
+  const allImageData = [];
+  const cats = Object.keys(IMAGE_COUNTS);
+  const maxCount = Math.max(0, ...cats.map(c => IMAGE_COUNTS[c]));
+
+  for (let round = 0; round < maxCount; round++) {
+    for (const cat of cats) {
+      const total = IMAGE_COUNTS[cat];
+      const imgNum = total - round;
+      if (imgNum >= 1) {
+        allImageData.push({ cat, num: imgNum });
+      }
+    }
+  }
+
+  /* ── Render gallery items ── */
   const grid = document.getElementById('gallery-grid');
 
-  Object.entries(IMAGE_COUNTS).forEach(([cat, count]) => {
-    for (let i = 1; i <= count; i++) {
-      const item = document.createElement('div');
-      item.className = 'gallery-item';
-      item.dataset.category = cat;
-      item.dataset.index = String(i);
-      item.setAttribute('role', 'listitem');
-      item.setAttribute('tabindex', '0');
-      item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + i);
+  allImageData.forEach(({ cat, num }) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.dataset.category = cat;
+    item.setAttribute('role', 'listitem');
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
 
-      const img = document.createElement('img');
-      img.src = R2_BASE + '/' + cat + '/' + i + '.webp';
-      img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA ' + i;
-      img.loading = 'lazy';
-      img.width = 600;
+    const img = document.createElement('img');
+    img.src = R2_BASE + '/' + cat + '/' + num + '.webp';
+    img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA';
+    img.loading = 'lazy';
+    img.width = 600;
 
-      const caption = document.createElement('div');
-      caption.className = 'gallery-caption';
-      caption.innerHTML = '<span class="caption-type">' + CATEGORY_LABELS[cat] + '</span>';
+    const badge = document.createElement('span');
+    badge.className = 'gallery-badge';
+    badge.textContent = CATEGORY_LABELS[cat];
 
-      item.appendChild(img);
-      item.appendChild(caption);
-      grid.appendChild(item);
-    }
+    item.appendChild(img);
+    item.appendChild(badge);
+    grid.appendChild(item);
   });
 
   /* ── Filter ── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  const filterSelect = document.getElementById('gallery-filter');
   const emptyMsg = document.getElementById('gallery-empty');
+  let currentFilter = 'all';
 
   function applyFilter(filter) {
+    currentFilter = filter;
     const items = grid.querySelectorAll('.gallery-item');
     let visible = 0;
     items.forEach(item => {
@@ -222,13 +242,11 @@
     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
   }
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilter(btn.dataset.filter);
+  if (filterSelect) {
+    filterSelect.addEventListener('change', () => {
+      applyFilter(filterSelect.value);
     });
-  });
+  }
 
   /* ── Lightbox ── */
   const lightbox = document.getElementById('lightbox');
@@ -241,13 +259,18 @@
   let lbItems = [];
   let lbIdx   = 0;
 
+  function getVisibleItems() {
+    return [...grid.querySelectorAll('.gallery-item')].filter(
+      el => el.style.display !== 'none'
+    );
+  }
+
   function lbOpen(items, idx) {
     lbItems = items;
     lbIdx   = idx;
     lbShow();
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
-    lbImg.focus();
   }
 
   function lbShow() {
@@ -255,8 +278,9 @@
     const img  = item.querySelector('img');
     lbImg.src = img.src;
     lbImg.alt = img.alt;
-    lbCap.textContent = img.alt;
-    /* Hide arrows when only 1 image in category */
+    lbCap.textContent = item.querySelector('.gallery-badge')
+      ? item.querySelector('.gallery-badge').textContent
+      : img.alt;
     const single = lbItems.length <= 1;
     lbPrev.style.display = single ? 'none' : '';
     lbNext.style.display = single ? 'none' : '';
@@ -278,18 +302,14 @@
     lbShow();
   }
 
-  /* Click on gallery item */
   grid.addEventListener('click', e => {
     const item = e.target.closest('.gallery-item');
     if (!item) return;
-    /* Browse within same category */
-    const cat = item.dataset.category;
-    const siblings = [...grid.querySelectorAll('.gallery-item[data-category="' + cat + '"]')];
-    const idx = siblings.indexOf(item);
-    lbOpen(siblings, idx);
+    const visible = getVisibleItems();
+    const idx = visible.indexOf(item);
+    lbOpen(visible, idx);
   });
 
-  /* Keyboard open */
   grid.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       const item = e.target.closest('.gallery-item');
