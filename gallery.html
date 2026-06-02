@@ -66,12 +66,12 @@
           <label for="gallery-filter" class="sr-only">Filter by category</label>
           <select id="gallery-filter" class="gallery-filter-select" aria-label="Filter gallery by door type">
             <option value="all">All Work</option>
-            <option value="entry-doors">Entry Doors</option>
-            <option value="interior-doors">Interior Doors</option>
-            <option value="barn-sliding-doors">Barn &amp; Sliding Doors</option>
+            <option value="exterior">Entry Doors</option>
+            <option value="interior">Interior Doors</option>
+            <option value="barn-doors">Barn &amp; Sliding Doors</option>
             <option value="closet-doors">Closet Doors</option>
-            <option value="room-dividers">Room Dividers</option>
-            <option value="crown-woodwork">Crown &amp; Woodwork</option>
+            <option value="room-divider">Room Dividers</option>
+            <option value="custom-wood-work">Crown &amp; Woodwork</option>
           </select>
         </div>
 
@@ -133,8 +133,8 @@
         <div class="footer-col">
           <p class="footer-col-heading">Services</p>
           <ul class="footer-links">
-            <li><a href="services.html#entry-doors">Entry &amp; Front Doors</a></li>
-            <li><a href="services.html#interior-doors">Interior Doors</a></li>
+            <li><a href="services.html#exterior">Entry &amp; Front Doors</a></li>
+            <li><a href="services.html#interior">Interior Doors</a></li>
             <li><a href="services.html#barn-doors">Barn &amp; Sliding Doors</a></li>
             <li><a href="services.html#crown-moulding">Crown Moulding &amp; Trim</a></li>
           </ul>
@@ -167,21 +167,21 @@
   const R2_BASE = 'https://images.masterdoorandcrown.com';
 
   const IMAGE_COUNTS = {
-    'entry-doors':        24,
-    'interior-doors':     25,
-    'barn-sliding-doors': 19,
+    'exterior':        24,
+    'interior':     25,
+    'barn-doors': 19,
     'closet-doors':       25,
-    'room-dividers':      18,
-    'crown-woodwork':     25
+    'room-divider':      18,
+    'custom-wood-work':     25
   };
 
   const CATEGORY_LABELS = {
-    'entry-doors':        'Entry Doors',
-    'interior-doors':     'Interior Doors',
-    'barn-sliding-doors': 'Barn \u0026 Sliding Doors',
+    'exterior':        'Entry Doors',
+    'interior':     'Interior Doors',
+    'barn-doors': 'Barn \u0026 Sliding Doors',
     'closet-doors':       'Closet Doors',
-    'room-dividers':      'Room Dividers',
-    'crown-woodwork':     'Crown \u0026 Woodwork'
+    'room-divider':      'Room Dividers',
+    'custom-wood-work':     'Crown \u0026 Woodwork'
   };
 
   /* ── Build interleaved all-images array (newest first per category) ── */
