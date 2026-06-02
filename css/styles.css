@@ -10,21 +10,28 @@
 }
 
 :root {
-  --color-dark:       #1a1a1a;
-  --color-charcoal:   #2d2d2d;
-  --color-wood:       #8B5E3C;
-  --color-wood-light: #a67c52;
-  --color-wood-dark:  #6b4423;
-  --color-bg:         #FAF8F5;
-  --color-bg-warm:    #F2EDE6;
-  --color-text:       #2d2d2d;
-  --color-text-light: #6b6560;
-  --color-border:     #e0d5c8;
-  --font-heading:     'Playfair Display', Georgia, serif;
-  --font-body:        'Inter', system-ui, -apple-system, sans-serif;
-  --max-width:        1200px;
-  --header-height:    72px;
-  --transition:       0.3s ease;
+  --color-dark:         #0F172A;
+  --color-charcoal:     #1E293B;
+  --color-wood:         #4A90D9;
+  --color-wood-light:   #60A5FA;
+  --color-wood-dark:    #3B7DC4;
+  --color-bg:           #0F172A;
+  --color-bg-warm:      #1E293B;
+  --color-text:         #F1F5F9;
+  --color-text-light:   #94A3B8;
+  --color-border:       #334155;
+  /* Semantic aliases */
+  --color-surface:      #1E293B;
+  --color-accent:       #4A90D9;
+  --color-accent-hover: #3B7DC4;
+  --color-text-muted:   #94A3B8;
+  --color-nav:          #1E293B;
+  --color-footer:       #0F172A;
+  --font-heading:       'Playfair Display', Georgia, serif;
+  --font-body:          'Inter', system-ui, -apple-system, sans-serif;
+  --max-width:          1200px;
+  --header-height:      72px;
+  --transition:         0.3s ease;
 }
 
 html {
@@ -1293,7 +1300,7 @@ section { padding: 88px 0; }
 .form-group textarea:focus {
   outline: none;
   border-color: var(--color-wood);
-  box-shadow: 0 0 0 3px rgba(139, 94, 60, 0.12);
+  box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.12);
 }
 
 .form-group textarea {
@@ -1821,4 +1828,27 @@ section { padding: 88px 0; }
 
 @media (max-width: 600px) {
   .city-services-grid { grid-template-columns: 1fr; }
+}
+
+/* === NAV LOGO === */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.nav-logo img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+
+/* === FOOTER LOGO === */
+.footer-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.footer-logo img {
+  height: 80px;
+  width: auto;
+  opacity: 0.9;
 }
