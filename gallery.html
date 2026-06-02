@@ -65,18 +65,15 @@
     <section class="gallery-section" style="padding: 64px 0 80px;">
       <div class="container">
 
-        <!-- FILTER DROPDOWN -->
-        <div class="gallery-filter-wrap">
-          <label for="gallery-filter" class="sr-only">Filter by category</label>
-          <select id="gallery-filter" class="gallery-filter-select" aria-label="Filter gallery by door type">
-            <option value="all">All Work</option>
-            <option value="exterior">Entry Doors</option>
-            <option value="interior">Interior Doors</option>
-            <option value="barn-doors">Barn &amp; Sliding Doors</option>
-            <option value="closet-doors">Closet Doors</option>
-            <option value="room-divider">Room Dividers</option>
-            <option value="custom-wood-work">Crown &amp; Woodwork</option>
-          </select>
+        <!-- FILTER TABS -->
+        <div class="gallery-filter-tabs" role="group" aria-label="Filter by door type">
+          <button class="filter-tab active" data-filter="all">All Work</button>
+          <button class="filter-tab" data-filter="entry-doors">Entry Doors</button>
+          <button class="filter-tab" data-filter="interior-doors">Interior Doors</button>
+          <button class="filter-tab" data-filter="barn-sliding-doors">Barn &amp; Sliding</button>
+          <button class="filter-tab" data-filter="closet-doors">Closet Doors</button>
+          <button class="filter-tab" data-filter="room-dividers">Room Dividers</button>
+          <button class="filter-tab" data-filter="crown-woodwork">Crown &amp; Woodwork</button>
         </div>
 
         <!-- GALLERY GRID — populated by JS below -->
@@ -175,26 +172,26 @@
   /* ============================================================
      Gallery — R2 image config
      Update IMAGE_COUNTS when images are added/removed from R2.
-     To remove an image: delete from R2, decrement count here.
+     Counts verified against R2 on 2026-06-02.
      ============================================================ */
   const R2_BASE = 'https://images.masterdoorandcrown.com';
 
   const IMAGE_COUNTS = {
-    'exterior':        24,
-    'interior':     25,
-    'barn-doors': 19,
+    'entry-doors':        24,
+    'interior-doors':     25,
+    'barn-sliding-doors': 19,
     'closet-doors':       25,
-    'room-divider':      18,
-    'custom-wood-work':     25
+    'room-dividers':      18,
+    'crown-woodwork':     25
   };
 
   const CATEGORY_LABELS = {
-    'exterior':        'Entry Doors',
-    'interior':     'Interior Doors',
-    'barn-doors': 'Barn \u0026 Sliding Doors',
+    'entry-doors':        'Entry Doors',
+    'interior-doors':     'Interior Doors',
+    'barn-sliding-doors': 'Barn \u0026 Sliding Doors',
     'closet-doors':       'Closet Doors',
-    'room-divider':      'Room Dividers',
-    'custom-wood-work':     'Crown \u0026 Woodwork'
+    'room-dividers':      'Room Dividers',
+    'crown-woodwork':     'Crown \u0026 Woodwork'
   };
 
   /* ── Build interleaved all-images array (newest first per category) ── */
@@ -228,19 +225,24 @@
     img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA';
     img.loading = 'lazy';
     img.width = 600;
+    img.height = 450;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'gallery-overlay';
 
     const badge = document.createElement('span');
-    badge.className = 'gallery-badge';
+    badge.className = 'gallery-cat-badge';
     badge.textContent = CATEGORY_LABELS[cat];
 
+    overlay.appendChild(badge);
     item.appendChild(img);
-    item.appendChild(badge);
+    item.appendChild(overlay);
     grid.appendChild(item);
   });
 
-  /* ── Filter ── */
-  const filterSelect = document.getElementById('gallery-filter');
+  /* ── Filter (pill tabs) ── */
   const emptyMsg = document.getElementById('gallery-empty');
+  const filterTabs = document.querySelectorAll('.filter-tab');
   let currentFilter = 'all';
 
   function applyFilter(filter) {
@@ -255,11 +257,13 @@
     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
   }
 
-  if (filterSelect) {
-    filterSelect.addEventListener('change', () => {
-      applyFilter(filterSelect.value);
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      applyFilter(tab.dataset.filter);
     });
-  }
+  });
 
   /* ── Lightbox ── */
   const lightbox = document.getElementById('lightbox');
@@ -291,9 +295,8 @@
     const img  = item.querySelector('img');
     lbImg.src = img.src;
     lbImg.alt = img.alt;
-    lbCap.textContent = item.querySelector('.gallery-badge')
-      ? item.querySelector('.gallery-badge').textContent
-      : img.alt;
+    const catBadge = item.querySelector('.gallery-cat-badge');
+    lbCap.textContent = catBadge ? catBadge.textContent : img.alt;
     const single = lbItems.length <= 1;
     lbPrev.style.display = single ? 'none' : '';
     lbNext.style.display = single ? 'none' : '';
