@@ -48,7 +48,7 @@
   });
 })();
 
-/* === GALLERY FILTER === */
+/* === GALLERY FILTER (legacy filter-btn support) === */
 (function initGalleryFilter() {
   const filterBtns = document.querySelectorAll('.filter-btn');
   const galleryItems = document.querySelectorAll('.gallery-item');
@@ -63,11 +63,6 @@
       galleryItems.forEach(item => {
         const show = filter === 'all' || item.dataset.category === filter;
         item.style.display = show ? '' : 'none';
-        if (show) {
-          item.style.animation = 'none';
-          item.offsetHeight; // reflow
-          item.style.animation = '';
-        }
       });
     });
   });
@@ -99,12 +94,11 @@
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', () => {
       const img = item.querySelector('img');
-      const captionEl = item.querySelector('.gallery-caption');
+      const captionEl = item.querySelector('.gallery-caption, .gallery-cat-badge');
       const captionText = captionEl ? captionEl.textContent.trim().replace(/\s+/g, ' ') : (img.alt || '');
       open(img.src, captionText);
     });
 
-    // Keyboard accessibility
     item.setAttribute('tabindex', '0');
     item.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -129,29 +123,99 @@
 (function initScrollReveal() {
   if (!window.IntersectionObserver) return;
 
-  const targets = document.querySelectorAll(
-    '.service-tile, .gallery-preview-item, .gallery-item, ' +
-    '.philosophy-card, .process-step, .city-card, ' +
-    '.psych-card, .about-teaser-img, .service-detail-img'
-  );
+  // Dynamically add .reveal to elements that don't have it yet
+  const autoRevealSelectors = [
+    '.service-tile', '.gallery-preview-item', '.gallery-item',
+    '.philosophy-card', '.process-step', '.city-card',
+    '.psych-card', '.service-detail-img', '.city-service-item',
+    '.section-header', '.cta-strip'
+  ];
 
-  if (!targets.length) return;
+  autoRevealSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      if (!el.classList.contains('reveal') &&
+          !el.classList.contains('reveal-left') &&
+          !el.classList.contains('reveal-right')) {
+        el.classList.add('reveal');
+      }
+    });
+  });
 
-  targets.forEach(el => el.classList.add('reveal'));
-
+  // Observe all reveal elements (both pre-existing in HTML and dynamically added)
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.12 });
 
-  targets.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+    .forEach(el => observer.observe(el));
 })();
 
-/* === CONTACT FORM VALIDATION (progressive enhancement) === */
+/* === ANIMATED COUNTERS === */
+(function initCounters() {
+  if (!window.IntersectionObserver) return;
+
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        el.textContent = target;
+        clearInterval(timer);
+      } else {
+        el.textContent = Math.floor(current);
+      }
+    }, 16);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+})();
+
+/* === FLOATING ACTION BUTTON === */
+(function initFAB() {
+  const fab = document.querySelector('.fab-main');
+  const menu = document.querySelector('.fab-menu');
+  if (!fab || !menu) return;
+
+  fab.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isHidden = menu.hasAttribute('hidden');
+    if (isHidden) menu.removeAttribute('hidden');
+    else menu.setAttribute('hidden', '');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.fab-container')) {
+      menu.setAttribute('hidden', '');
+    }
+  });
+})();
+
+/* === IMAGE LOADED SHIMMER === */
+(function initImageLoaded() {
+  document.querySelectorAll('img').forEach(img => {
+    if (img.complete) img.classList.add('loaded');
+    else img.addEventListener('load', () => img.classList.add('loaded'));
+  });
+})();
+
+/* === CONTACT FORM VALIDATION === */
 (function initContactForm() {
   const form = document.getElementById('estimate-form');
   if (!form) return;
@@ -199,11 +263,11 @@
     });
 
     trigger.setAttribute('aria-expanded', 'false');
-    item.querySelector('.faq-answer').setAttribute('aria-hidden', 'true');
+    const answer = item.querySelector('.faq-answer');
+    if (answer) answer.setAttribute('aria-hidden', 'true');
   });
 
-  document.addEventListener('click', (e) => {
-    const item = e.target.closest('.faq-item');
+  document.addEventListener('click', () => {
     items.forEach(i => {
       const open = i.classList.contains('open');
       const trigger = i.querySelector('.faq-question');
