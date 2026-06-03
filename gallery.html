@@ -18,7 +18,7 @@
   <link rel="canonical" href="https://www.masterdoorandcrown.com/gallery.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
@@ -232,9 +232,8 @@
     item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
 
     const img = document.createElement('img');
-    img.src = R2_BASE + '/' + cat + '/' + num + '.webp';
+    img.dataset.src = R2_BASE + '/' + cat + '/' + num + '.webp';
     img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA';
-    img.loading = 'lazy';
     img.width = 600;
     img.height = 450;
 
@@ -251,6 +250,26 @@
     grid.appendChild(item);
   });
 
+  /* ── Lazy load with IntersectionObserver ── */
+  const imgObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const item = entry.target;
+      const img = item.querySelector('img[data-src]');
+      if (img) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        img.addEventListener('load', () => item.classList.add('img-visible'), { once: true });
+        img.addEventListener('error', () => item.classList.add('img-visible'), { once: true });
+      } else {
+        item.classList.add('img-visible');
+      }
+      obs.unobserve(item);
+    });
+  }, { rootMargin: '200px 0px', threshold: 0 });
+
+  grid.querySelectorAll('.gallery-item').forEach(item => imgObserver.observe(item));
+
   /* ── Filter (pill tabs) ── */
   const emptyMsg = document.getElementById('gallery-empty');
   const filterTabs = document.querySelectorAll('.filter-tab');
@@ -263,7 +282,20 @@
     items.forEach(item => {
       const show = filter === 'all' || item.dataset.category === filter;
       item.style.display = show ? '' : 'none';
-      if (show) visible++;
+      if (show) {
+        visible++;
+        // Re-animate items when shown by filter
+        item.classList.remove('img-visible');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          item.classList.add('img-visible');
+        }));
+        // Ensure unloaded images get loaded now
+        const img = item.querySelector('img[data-src]');
+        if (img) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+      }
     });
     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
   }
@@ -304,7 +336,7 @@
   function lbShow() {
     const item = lbItems[lbIdx];
     const img  = item.querySelector('img');
-    lbImg.src = img.src;
+    lbImg.src = img.src || img.dataset.src || '';
     lbImg.alt = img.alt;
     const catBadge = item.querySelector('.gallery-cat-badge');
     lbCap.textContent = catBadge ? catBadge.textContent : img.alt;

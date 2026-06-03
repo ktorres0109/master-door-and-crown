@@ -27,8 +27,11 @@
   --color-text-muted:   #94A3B8;
   --color-nav:          #1E293B;
   --color-footer:       #0F172A;
-  --font-heading:       'Playfair Display', Georgia, serif;
-  --font-body:          'Inter', system-ui, -apple-system, sans-serif;
+  --color-gold:         #C8973A;
+  --color-gold-light:   #DEB05A;
+  --color-gold-dark:    #A87C2E;
+  --font-heading:       'Cormorant Garamond', Georgia, serif;
+  --font-body:          'DM Sans', system-ui, -apple-system, sans-serif;
   --max-width:          1200px;
   --header-height:      72px;
   --transition:         0.3s ease;
@@ -342,44 +345,99 @@ ul { list-style: none; }
 }
 
 /* === TRUST STRIP === */
-.trust-strip {
-  background: var(--color-wood);
-  padding: 0;
+/* === STATS MEDALS === */
+.stats-medals-section {
+  padding: 72px 0 64px;
+  background: var(--color-bg);
 }
 
-.trust-strip-inner {
+.stats-medals-grid {
   display: flex;
-  align-items: stretch;
   justify-content: center;
+  gap: 48px;
   flex-wrap: wrap;
 }
 
-.trust-item {
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 16px 36px;
+.stat-medal {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
+  text-align: center;
+}
+
+.stat-medal-ring {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  box-shadow:
+    0 0 0 6px rgba(200,151,58,0.08),
+    0 0 0 12px rgba(200,151,58,0.04),
+    0 8px 32px rgba(0,0,0,0.4);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   position: relative;
 }
 
-.trust-item + .trust-item::before {
+.stat-medal-ring::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 20%;
-  bottom: 20%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.35);
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,151,58,0.25);
 }
 
-.trust-icon {
-  font-size: 1rem;
-  opacity: 0.9;
+.stat-medal-number {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stat-medal-unit {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  opacity: 0.8;
+  margin-top: 1px;
+}
+
+.stat-medal-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+  .stats-medals-grid { gap: 28px; }
+  .stat-medal-ring { width: 108px; height: 108px; }
+  .stat-medal-number { font-size: 1.875rem; }
+}
+
+/* Trust icon kept for legacy compat */
+.trust-icon { display: none; }
+
+/* === GALLERY LAZY LOAD ANIMATION === */
+.gallery-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.gallery-item.img-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* === SECTION BASE === */
@@ -1479,8 +1537,7 @@ section { padding: 88px 0; }
   .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
   .footer-legal { text-align: center; }
 
-  .trust-item { padding: 14px 20px; }
-  .trust-item + .trust-item::before { left: 0; }
+  /* trust-item removed — replaced by stat medals */
 
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .form-row .form-group { margin-bottom: 22px; }
