@@ -187,6 +187,33 @@
   document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 })();
 
+/* === NAV DROPDOWN (mobile touch) === */
+(function initNavDropdown() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+  if (!dropdowns.length) return;
+
+  dropdowns.forEach(dd => {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', (e) => {
+      // On desktop hover handles it — only intercept on touch/mobile
+      if (window.innerWidth > 768) return;
+      e.preventDefault();
+      const isOpen = dd.classList.contains('open');
+      // Close all others
+      dropdowns.forEach(d => d.classList.remove('open'));
+      if (!isOpen) dd.classList.add('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-dropdown')) {
+      dropdowns.forEach(d => d.classList.remove('open'));
+    }
+  });
+})();
+
 /* === FLOATING ACTION BUTTON === */
 (function initFAB() {
   const fab = document.querySelector('.fab-main');

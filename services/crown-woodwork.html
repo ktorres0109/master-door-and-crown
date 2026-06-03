@@ -60,7 +60,17 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../services.html" class="nav-link active">Services</a>
+        <div class="nav-dropdown">
+          <a href="../services.html" class="nav-link nav-dropdown-trigger active">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="../services/entry-doors.html" class="nav-dropdown-item">Entry &amp; Front Doors</a>
+            <a href="../services/interior-doors.html" class="nav-dropdown-item">Interior Doors</a>
+            <a href="../services/barn-sliding-doors.html" class="nav-dropdown-item">Barn &amp; Sliding Doors</a>
+            <a href="../services/closet-doors.html" class="nav-dropdown-item">Closet Doors</a>
+            <a href="../services/room-dividers.html" class="nav-dropdown-item">Room Dividers</a>
+            <a href="../services/crown-woodwork.html" class="nav-dropdown-item">Crown &amp; Woodwork</a>
+          </div>
+        </div>
         <a href="../gallery.html" class="nav-link">Gallery</a>
         <a href="../about.html" class="nav-link">About</a>
         <a href="../service-areas.html" class="nav-link">Service Areas</a>
@@ -86,24 +96,20 @@
       </div>
     </div>
 
-    <!-- IMAGE GRID -->
-    <section style="padding: 64px 0; background: var(--color-bg);">
-      <div class="container">
-        <div class="gallery-preview-grid" id="service-img-preview"></div>
-        <p style="margin-top: 20px; text-align: center;"><a href="../gallery.html" class="btn btn-primary">View Full Gallery</a></p>
-      </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
+    <!-- IMAGE + WHAT WE BUILD -->
     <section style="padding: 80px 0; background: var(--color-bg);">
       <div class="container">
+        <div class="service-hero-layout">
+          <div class="service-img-2x2" id="service-img-preview"></div>
+          <div>
         <span class="section-label">What We Build</span>
         <h2 class="section-title">Solid Wood Profiles for Every Room</h2>
-        <div style="max-width: 760px; margin-top: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8;">
+        <div style="display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8; margin-top: 0;">
           <p>Crown moulding profiles range from a simple cove with a flat fillet to complex built-up assemblies with multiple members stacked to create a face height of five or six inches. Formal dining rooms, libraries, and entry foyers with ceiling heights above nine feet can accommodate the larger built-up profiles without feeling heavy. Standard-height rooms call for a simpler crown — typically a single member in the 3.5 to 4.5 inch range — that adds presence without competing with the room. We size the profile for your ceiling height and room dimensions, not for what happens to be in stock.</p>
           <p>Door and window casing is where the character of the home's interior is most visible because it appears at every opening throughout the house. Colonial casing with a back band creates a traditional look. Craftsman casing with a flat head casing and corner blocks reads as period-appropriate in bungalows and arts-and-crafts homes. Contemporary casing — clean, minimal, shadow-line reveals — works with modern interiors. Whatever the profile, we mill it consistently and install it with tight joints at every corner and return.</p>
           <p>Base moulding and base cap work the same way: the profile needs to be sized for the room, consistent throughout the floor, and installed with precise miters and returns at inside and outside corners. California's older homes frequently have settled walls with irregular profiles at the floor line — we scribe base moulding to the wall so there are no gaps, rather than caulking the gap and hoping paint covers it.</p>
           <p>Built-ins and bookcases are designed and built as architectural elements, not furniture placed against a wall. We frame and case them so they read as part of the room's structure, with profiles matching the crown and base moulding already in the space. Historic profile matching for renovation and addition projects is something we do frequently — California's older homes often have moulding profiles that haven't been in standard production for decades, and we can reproduce them from a sample or photograph.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -277,17 +283,14 @@
       }
       return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
     }
-    const imgs = getRandomImages('crown-woodwork', 6, IMAGE_COUNTS['crown-woodwork']);
+    const imgs = getRandomImages('crown-woodwork', 4, IMAGE_COUNTS['crown-woodwork']);
     const grid = document.getElementById('service-img-preview');
     imgs.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'gallery-preview-item';
       const img = document.createElement('img');
       img.src = src;
-      img.alt = 'Custom crown moulding by Master Door and Crown — Ventura County, CA';
+      img.alt = 'Custom crown moulding and woodwork by Master Door and Crown — Ventura County, CA';
       img.loading = 'lazy';
-      item.appendChild(img);
-      grid.appendChild(item);
+      grid.appendChild(img);
     });
   </script>
 

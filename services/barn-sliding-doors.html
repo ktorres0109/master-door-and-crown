@@ -60,7 +60,17 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../services.html" class="nav-link active">Services</a>
+        <div class="nav-dropdown">
+          <a href="../services.html" class="nav-link nav-dropdown-trigger active">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="../services/entry-doors.html" class="nav-dropdown-item">Entry &amp; Front Doors</a>
+            <a href="../services/interior-doors.html" class="nav-dropdown-item">Interior Doors</a>
+            <a href="../services/barn-sliding-doors.html" class="nav-dropdown-item">Barn &amp; Sliding Doors</a>
+            <a href="../services/closet-doors.html" class="nav-dropdown-item">Closet Doors</a>
+            <a href="../services/room-dividers.html" class="nav-dropdown-item">Room Dividers</a>
+            <a href="../services/crown-woodwork.html" class="nav-dropdown-item">Crown &amp; Woodwork</a>
+          </div>
+        </div>
         <a href="../gallery.html" class="nav-link">Gallery</a>
         <a href="../about.html" class="nav-link">About</a>
         <a href="../service-areas.html" class="nav-link">Service Areas</a>
@@ -86,24 +96,20 @@
       </div>
     </div>
 
-    <!-- IMAGE GRID -->
-    <section style="padding: 64px 0; background: var(--color-bg);">
-      <div class="container">
-        <div class="gallery-preview-grid" id="service-img-preview"></div>
-        <p style="margin-top: 20px; text-align: center;"><a href="../gallery.html" class="btn btn-primary">View Full Gallery</a></p>
-      </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
+    <!-- IMAGE + WHAT WE BUILD -->
     <section style="padding: 80px 0; background: var(--color-bg);">
       <div class="container">
+        <div class="service-hero-layout">
+          <div class="service-img-2x2" id="service-img-preview"></div>
+          <div>
         <span class="section-label">What We Build</span>
         <h2 class="section-title">Sliding Door Systems Built to Last</h2>
-        <div style="max-width: 760px; margin-top: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8;">
+        <div style="display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8; margin-top: 0;">
           <p>We build single and double barn door configurations for openings from narrow hallway passages to wide open-plan transitions. The slab itself can be plank-style (horizontal or vertical boards, spaced or tight), panel-style with raised or flat fields, or frame-and-fill with glass inserts. Strap configurations — Z-brace, X-brace, or clean face — are selected based on the door's size and the structural forces at play, not just aesthetics.</p>
           <p>Structurally, we apply the same joinery standards we use for entry doors. A barn door spans a wide opening and bears its own weight on a track; if the construction isn't right, it racks, twists, and binds on the hardware within a few seasons. We use mortise-and-tenon joinery throughout, with mechanical fasteners at stress points, and we size the lumber for the door's dimensions. A 48-inch-wide door needs different rail dimensions than a 24-inch door — we engineer for that.</p>
           <p>For custom widths common in open-plan renovations — 60, 72, even 84 inches — double door configurations that bypass each other are often the right solution. We build bypasses with matching profiles so the pair reads as a unified surface when closed. Pocket door slabs are available for installations where wall depth permits a full pocket — we build the slab and coordinate with the pocket hardware manufacturer for correct weight ratings.</p>
           <p>Hardware coordination is part of the scope. We work with soft-close systems, anti-jump floor guides, and flush pulls that sit recessed in the door face. We specify hardware rated for the actual weight of the door — something mass-market barn door kits frequently get wrong — and we install it as part of the project rather than handing you a bag of parts at the end.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -277,17 +283,14 @@
       }
       return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
     }
-    const imgs = getRandomImages('barn-sliding-doors', 6, IMAGE_COUNTS['barn-sliding-doors']);
+    const imgs = getRandomImages('barn-sliding-doors', 4, IMAGE_COUNTS['barn-sliding-doors']);
     const grid = document.getElementById('service-img-preview');
     imgs.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'gallery-preview-item';
       const img = document.createElement('img');
       img.src = src;
-      img.alt = 'Custom barn door by Master Door and Crown — Ventura County, CA';
+      img.alt = 'Custom barn/sliding door by Master Door and Crown — Ventura County, CA';
       img.loading = 'lazy';
-      item.appendChild(img);
-      grid.appendChild(item);
+      grid.appendChild(img);
     });
   </script>
 

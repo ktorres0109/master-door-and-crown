@@ -60,7 +60,17 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../services.html" class="nav-link active">Services</a>
+        <div class="nav-dropdown">
+          <a href="../services.html" class="nav-link nav-dropdown-trigger active">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="../services/entry-doors.html" class="nav-dropdown-item">Entry &amp; Front Doors</a>
+            <a href="../services/interior-doors.html" class="nav-dropdown-item">Interior Doors</a>
+            <a href="../services/barn-sliding-doors.html" class="nav-dropdown-item">Barn &amp; Sliding Doors</a>
+            <a href="../services/closet-doors.html" class="nav-dropdown-item">Closet Doors</a>
+            <a href="../services/room-dividers.html" class="nav-dropdown-item">Room Dividers</a>
+            <a href="../services/crown-woodwork.html" class="nav-dropdown-item">Crown &amp; Woodwork</a>
+          </div>
+        </div>
         <a href="../gallery.html" class="nav-link">Gallery</a>
         <a href="../about.html" class="nav-link">About</a>
         <a href="../service-areas.html" class="nav-link">Service Areas</a>
@@ -86,24 +96,20 @@
       </div>
     </div>
 
-    <!-- IMAGE GRID -->
-    <section style="padding: 64px 0; background: var(--color-bg);">
-      <div class="container">
-        <div class="gallery-preview-grid" id="service-img-preview"></div>
-        <p style="margin-top: 20px; text-align: center;"><a href="../gallery.html" class="btn btn-primary">View Full Gallery</a></p>
-      </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
+    <!-- IMAGE + WHAT WE BUILD -->
     <section style="padding: 80px 0; background: var(--color-bg);">
       <div class="container">
+        <div class="service-hero-layout">
+          <div class="service-img-2x2" id="service-img-preview"></div>
+          <div>
         <span class="section-label">What We Build</span>
         <h2 class="section-title">Flexible Separation That Doesn't Feel Like a Wall</h2>
-        <div style="max-width: 760px; margin-top: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8;">
+        <div style="display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8; margin-top: 0;">
           <p>French door pairs are the most requested configuration — two equal-width doors that swing from a center astragal, passing light between rooms while creating a visual and acoustic barrier when closed. We build them in full-glass, divided-light, and partial-glass configurations. Glass options include clear, frosted (for privacy without blocking light), textured, and leaded or beveled for more traditional interiors. The glass is integrated into the frame design from the start — not set into a frame sized for solid panels.</p>
           <p>Double door configurations — two doors hinged from opposite jambs — work well for wider openings where French door proportions would create panels that are too narrow. We size double doors to maintain the right visual proportion for the opening width and the room's scale. Transom lights above the door unit are common for openings over eight feet; we build those as part of the unit rather than as a separate fill.</p>
           <p>Full-height glass panel configurations create a near-transparent wall between spaces — appropriate for contemporary interiors where the goal is visual separation without physical weight. We frame these in wood matching the interior millwork, using tempered glass, and set them in a track system that allows the panels to swing or slide as needed. For home offices, the ability to close off the space visually while light passes through makes a real difference in how the room feels during the day.</p>
           <p>For indoor-outdoor connections — a living room opening to a covered patio, or a kitchen to a courtyard — we build exterior-rated French door systems using wood species and finishes appropriate for weathered exposure. These are full exterior door systems, not interior doors installed outside, and they're built with the sealing, threshold, and hardware systems that outdoor use requires.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -277,17 +283,14 @@
       }
       return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
     }
-    const imgs = getRandomImages('room-dividers', 6, IMAGE_COUNTS['room-dividers']);
+    const imgs = getRandomImages('room-dividers', 4, IMAGE_COUNTS['room-dividers']);
     const grid = document.getElementById('service-img-preview');
     imgs.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'gallery-preview-item';
       const img = document.createElement('img');
       img.src = src;
       img.alt = 'Custom room divider by Master Door and Crown — Ventura County, CA';
       img.loading = 'lazy';
-      item.appendChild(img);
-      grid.appendChild(item);
+      grid.appendChild(img);
     });
   </script>
 

@@ -60,7 +60,17 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../services.html" class="nav-link active">Services</a>
+        <div class="nav-dropdown">
+          <a href="../services.html" class="nav-link nav-dropdown-trigger active">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="../services/entry-doors.html" class="nav-dropdown-item">Entry &amp; Front Doors</a>
+            <a href="../services/interior-doors.html" class="nav-dropdown-item">Interior Doors</a>
+            <a href="../services/barn-sliding-doors.html" class="nav-dropdown-item">Barn &amp; Sliding Doors</a>
+            <a href="../services/closet-doors.html" class="nav-dropdown-item">Closet Doors</a>
+            <a href="../services/room-dividers.html" class="nav-dropdown-item">Room Dividers</a>
+            <a href="../services/crown-woodwork.html" class="nav-dropdown-item">Crown &amp; Woodwork</a>
+          </div>
+        </div>
         <a href="../gallery.html" class="nav-link">Gallery</a>
         <a href="../about.html" class="nav-link">About</a>
         <a href="../service-areas.html" class="nav-link">Service Areas</a>
@@ -86,24 +96,20 @@
       </div>
     </div>
 
-    <!-- IMAGE GRID -->
-    <section style="padding: 64px 0; background: var(--color-bg);">
-      <div class="container">
-        <div class="gallery-preview-grid" id="service-img-preview"></div>
-        <p style="margin-top: 20px; text-align: center;"><a href="../gallery.html" class="btn btn-primary">View Full Gallery</a></p>
-      </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
+    <!-- IMAGE + WHAT WE BUILD -->
     <section style="padding: 80px 0; background: var(--color-bg);">
       <div class="container">
+        <div class="service-hero-layout">
+          <div class="service-img-2x2" id="service-img-preview"></div>
+          <div>
         <span class="section-label">What We Build</span>
         <h2 class="section-title">Closet Doors That Belong in the Room</h2>
-        <div style="max-width: 760px; margin-top: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8;">
+        <div style="display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8; margin-top: 0;">
           <p>Bifold configurations are the most common request for reach-in closets — they maximize access to the full opening width without requiring swing clearance into the room. We build bifold sets with the same panel profiles and wood species used on the other interior doors in the home, so the closet doesn't announce itself as a different product. Hardware is specified for smooth folding travel and positive closure, not just the cheapest pivot that fits.</p>
           <p>Bypass sliding configurations are appropriate for wider openings — typically four feet or more — where bifolds would create awkward panel proportions, or where swing clearance is tight on both sides. We build bypass slabs in matched pairs so the face profiles align when one panel overlaps the other. The result looks intentional rather than like two independent doors that happen to be on the same track.</p>
           <p>Barn-style hardware for closets is a practical solution when swing clearance doesn't exist and the wall space adjacent to the opening allows the door to travel fully open. We build these the same way we build standard barn doors — solid construction, correctly rated hardware — and keep the profile consistent with the rest of the room's woodwork so it doesn't feel like a stylistic detour.</p>
           <p>For walk-in closets, the entry is a real door — hinged, with a proper frame, hardware, and reveal. We treat walk-in entries as part of the interior door package rather than a separate category, which means the profile, species, and finish match exactly. Primary bedroom walk-in closets in particular benefit from a door that reads as an extension of the room rather than a utility opening.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -277,17 +283,14 @@
       }
       return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
     }
-    const imgs = getRandomImages('closet-doors', 6, IMAGE_COUNTS['closet-doors']);
+    const imgs = getRandomImages('closet-doors', 4, IMAGE_COUNTS['closet-doors']);
     const grid = document.getElementById('service-img-preview');
     imgs.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'gallery-preview-item';
       const img = document.createElement('img');
       img.src = src;
       img.alt = 'Custom closet door by Master Door and Crown — Ventura County, CA';
       img.loading = 'lazy';
-      item.appendChild(img);
-      grid.appendChild(item);
+      grid.appendChild(img);
     });
   </script>
 

@@ -60,7 +60,17 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../services.html" class="nav-link active">Services</a>
+        <div class="nav-dropdown">
+          <a href="../services.html" class="nav-link nav-dropdown-trigger active">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="../services/entry-doors.html" class="nav-dropdown-item">Entry &amp; Front Doors</a>
+            <a href="../services/interior-doors.html" class="nav-dropdown-item">Interior Doors</a>
+            <a href="../services/barn-sliding-doors.html" class="nav-dropdown-item">Barn &amp; Sliding Doors</a>
+            <a href="../services/closet-doors.html" class="nav-dropdown-item">Closet Doors</a>
+            <a href="../services/room-dividers.html" class="nav-dropdown-item">Room Dividers</a>
+            <a href="../services/crown-woodwork.html" class="nav-dropdown-item">Crown &amp; Woodwork</a>
+          </div>
+        </div>
         <a href="../gallery.html" class="nav-link">Gallery</a>
         <a href="../about.html" class="nav-link">About</a>
         <a href="../service-areas.html" class="nav-link">Service Areas</a>
@@ -86,24 +96,20 @@
       </div>
     </div>
 
-    <!-- IMAGE GRID -->
-    <section style="padding: 64px 0; background: var(--color-bg);">
-      <div class="container">
-        <div class="gallery-preview-grid" id="service-img-preview"></div>
-        <p style="margin-top: 20px; text-align: center;"><a href="../gallery.html" class="btn btn-primary">View Full Gallery</a></p>
-      </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
+    <!-- IMAGE + WHAT WE BUILD -->
     <section style="padding: 80px 0; background: var(--color-bg);">
       <div class="container">
+        <div class="service-hero-layout">
+          <div class="service-img-2x2" id="service-img-preview"></div>
+          <div>
         <span class="section-label">What We Build</span>
         <h2 class="section-title">Every Entry Door, From Scratch</h2>
-        <div style="max-width: 760px; margin-top: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8;">
+        <div style="display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8; margin-top: 0;">
           <p>We build entry doors in every style found in Ventura County — craftsman with flat or raised panels and square sticking, contemporary with clean flush profiles and minimal hardware lines, traditional colonial with symmetrical raised panels, and custom arched or pivot doors for homes with non-standard entries. Every build starts with a sketch and a site visit, not a catalog selection.</p>
           <p>All joinery is mortise-and-tenon. The rails and stiles are cut to dimension, tenons are machined to spec, and the assembly is glued and pegged. This is how solid wood doors have been built for centuries, and it's still the most structurally sound method available. We do not use pocket screws, biscuits, or manufactured wood blanks as a starting point.</p>
           <p>Wood species are selected based on your home's climate exposure and the finish you want. Oak and Douglas fir are excellent for paint-grade work and take stain cleanly. Walnut and mahogany produce rich, dark tones when stained. For coastal homes in Ventura, Oxnard, and Port Hueneme — where marine air and UV exposure are serious factors — we often recommend teak, ipe, or mahogany because their natural oils resist moisture penetration without requiring constant maintenance. We'll talk through the right choice for your specific site during the consultation.</p>
           <p>Hardware and glass options are handled as part of the design process. We can prep for any lockset, deadbolt, handleset, or pivot hinge system. If you want glass — sidelites, a transom, divided-light panels within the door itself, or decorative leaded glass — we design the door around the glass package from the start so the framing is sized and reinforced correctly. Exterior finish is applied in multiple coats, with sanding between coats, using products rated for California's coastal and inland climate conditions.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -277,17 +283,14 @@
       }
       return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
     }
-    const imgs = getRandomImages('entry-doors', 6, IMAGE_COUNTS['entry-doors']);
+    const imgs = getRandomImages('entry-doors', 4, IMAGE_COUNTS['entry-doors']);
     const grid = document.getElementById('service-img-preview');
     imgs.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'gallery-preview-item';
       const img = document.createElement('img');
       img.src = src;
       img.alt = 'Custom entry door by Master Door and Crown — Ventura County, CA';
       img.loading = 'lazy';
-      item.appendChild(img);
-      grid.appendChild(item);
+      grid.appendChild(img);
     });
   </script>
 

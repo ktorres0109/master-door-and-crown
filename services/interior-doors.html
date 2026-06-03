@@ -60,7 +60,17 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <a href="../index.html" class="nav-link">Home</a>
-        <a href="../services.html" class="nav-link active">Services</a>
+        <div class="nav-dropdown">
+          <a href="../services.html" class="nav-link nav-dropdown-trigger active">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="../services/entry-doors.html" class="nav-dropdown-item">Entry &amp; Front Doors</a>
+            <a href="../services/interior-doors.html" class="nav-dropdown-item">Interior Doors</a>
+            <a href="../services/barn-sliding-doors.html" class="nav-dropdown-item">Barn &amp; Sliding Doors</a>
+            <a href="../services/closet-doors.html" class="nav-dropdown-item">Closet Doors</a>
+            <a href="../services/room-dividers.html" class="nav-dropdown-item">Room Dividers</a>
+            <a href="../services/crown-woodwork.html" class="nav-dropdown-item">Crown &amp; Woodwork</a>
+          </div>
+        </div>
         <a href="../gallery.html" class="nav-link">Gallery</a>
         <a href="../about.html" class="nav-link">About</a>
         <a href="../service-areas.html" class="nav-link">Service Areas</a>
@@ -86,24 +96,20 @@
       </div>
     </div>
 
-    <!-- IMAGE GRID -->
-    <section style="padding: 64px 0; background: var(--color-bg);">
-      <div class="container">
-        <div class="gallery-preview-grid" id="service-img-preview"></div>
-        <p style="margin-top: 20px; text-align: center;"><a href="../gallery.html" class="btn btn-primary">View Full Gallery</a></p>
-      </div>
-    </section>
-
-    <!-- WHAT WE BUILD -->
+    <!-- IMAGE + WHAT WE BUILD -->
     <section style="padding: 80px 0; background: var(--color-bg);">
       <div class="container">
+        <div class="service-hero-layout">
+          <div class="service-img-2x2" id="service-img-preview"></div>
+          <div>
         <span class="section-label">What We Build</span>
         <h2 class="section-title">Solid Wood Interior Doors for Every Room</h2>
-        <div style="max-width: 760px; margin-top: 32px; display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8;">
+        <div style="display: flex; flex-direction: column; gap: 24px; color: var(--color-text); line-height: 1.8; margin-top: 0;">
           <p>We handle complete interior door packages for whole-home renovations and single replacement doors for one room. Either way, the approach is the same: we measure every opening, establish a consistent panel profile and wood species, and build a set of doors that reads as a unified design language throughout the house — rather than a collection of close-but-not-quite matches.</p>
           <p>Wood species choice depends on whether the doors will be painted or stained. For paint-grade work, poplar and soft maple are ideal — they have a tight, consistent grain that accepts paint smoothly and won't telegraph figure through a finished surface. For stain-grade doors, oak, walnut, and cherry each bring a distinct character. We'll show you samples in your actual space, under your lighting conditions, before anything is finalized.</p>
           <p>Panel configurations include 2-panel, 3-panel, 5-panel, and flush. Traditional and craftsman homes typically call for 2 or 5 panel arrangements with square or ogee sticking. Contemporary homes often look better with flat-panel or flush profiles. French door sets — glass-paned pairs that pass light between rooms — are a common request for offices, libraries, and dining rooms that benefit from visual connection without sacrificing sound control.</p>
           <p>We build prehung and slab depending on what your project requires. Slab-only is appropriate when the existing frame is in good condition and the rough opening is square and correctly sized. Prehung — door pre-assembled into a new frame — is the right call for renovations where the existing frame is worn, damaged, or undersized. We make that call after we've seen the opening in person.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -277,17 +283,14 @@
       }
       return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
     }
-    const imgs = getRandomImages('interior-doors', 6, IMAGE_COUNTS['interior-doors']);
+    const imgs = getRandomImages('interior-doors', 4, IMAGE_COUNTS['interior-doors']);
     const grid = document.getElementById('service-img-preview');
     imgs.forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'gallery-preview-item';
       const img = document.createElement('img');
       img.src = src;
       img.alt = 'Custom interior door by Master Door and Crown — Ventura County, CA';
       img.loading = 'lazy';
-      item.appendChild(img);
-      grid.appendChild(item);
+      grid.appendChild(img);
     });
   </script>
 
