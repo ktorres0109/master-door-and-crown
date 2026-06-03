@@ -2017,23 +2017,31 @@ body { animation: pageFadeIn 0.4s ease; }
 }
 
 .nav-dropdown-menu {
-  display: none;
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-4px);
   background: var(--color-charcoal);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   min-width: 210px;
   padding: 6px 0;
-  z-index: 500;
+  z-index: 1100;
   box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  /* Always out-of-flow; hidden via visibility */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s 0.18s;
 }
 
 .nav-dropdown:hover .nav-dropdown-menu,
 .nav-dropdown.open .nav-dropdown-menu {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s 0s;
 }
 
 .nav-dropdown-item {
@@ -2063,7 +2071,7 @@ body { animation: pageFadeIn 0.4s ease; }
   }
   .nav-dropdown-menu {
     position: static;
-    transform: none;
+    transform: none !important;
     box-shadow: none;
     border: none;
     background: rgba(255,255,255,0.04);
@@ -2072,10 +2080,31 @@ body { animation: pageFadeIn 0.4s ease; }
     margin-top: 4px;
     min-width: 0;
     width: 100%;
+    /* Override visibility approach for mobile — use height-based toggle */
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.2s ease, max-height 0.25s ease, visibility 0s 0.25s;
+    pointer-events: none;
   }
-  .nav-dropdown.open .nav-dropdown-menu { display: block; }
-  .nav-dropdown:hover .nav-dropdown-menu { display: none; }
-  .nav-dropdown.open:hover .nav-dropdown-menu { display: block; }
+  .nav-dropdown.open .nav-dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    max-height: 300px;
+    pointer-events: auto;
+    transition: opacity 0.2s ease, max-height 0.25s ease, visibility 0s 0s;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu {
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0;
+  }
+  .nav-dropdown.open:hover .nav-dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    max-height: 300px;
+  }
   .nav-dropdown-item {
     padding: 8px 20px;
   }
