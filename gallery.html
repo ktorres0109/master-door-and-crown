@@ -73,10 +73,10 @@
     </div>
 
     <!-- GALLERY -->
-    <section class="gallery-section" style="padding: 64px 0 80px;">
-      <div class="container">
+    <section class="gallery-section" style="padding: 48px 0 0;">
 
-        <!-- FILTER TABS -->
+      <!-- Filter tabs stay inside container -->
+      <div class="container">
         <div class="gallery-filter-tabs" role="group" aria-label="Filter by door type">
           <button class="filter-tab active" data-filter="all">All Work</button>
           <button class="filter-tab" data-filter="entry-doors">Entry Doors</button>
@@ -86,16 +86,14 @@
           <button class="filter-tab" data-filter="room-dividers">Room Dividers</button>
           <button class="filter-tab" data-filter="crown-woodwork">Crown &amp; Woodwork</button>
         </div>
-
-        <!-- GALLERY GRID — populated by JS below -->
-        <div class="gallery-grid" id="gallery-grid" role="list" aria-label="Gallery images"></div>
-
-        <!-- Empty state (shown when a filter has 0 images) -->
         <p id="gallery-empty" style="display:none; color: var(--color-text-light); text-align:center; padding: 48px 0; font-size: 1rem;">
           No images in this category yet. Check back soon.
         </p>
-
       </div>
+
+      <!-- Grid is full-bleed (outside container) -->
+      <div class="gallery-grid" id="gallery-grid" role="list" aria-label="Gallery images"></div>
+
     </section>
 
     <!-- CTA STRIP -->
@@ -223,10 +221,11 @@
   /* ── Render gallery items ── */
   const grid = document.getElementById('gallery-grid');
 
-  allImageData.forEach(({ cat, num }) => {
+  allImageData.forEach(({ cat, num }, globalIdx) => {
     const item = document.createElement('div');
     item.className = 'gallery-item';
     item.dataset.category = cat;
+    item.dataset.globalNum = globalIdx + 1;
     item.setAttribute('role', 'listitem');
     item.setAttribute('tabindex', '0');
     item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
@@ -246,7 +245,7 @@
 
     const numLabel = document.createElement('span');
     numLabel.className = 'gallery-num-label';
-    numLabel.textContent = num;
+    numLabel.textContent = globalIdx + 1;
 
     overlay.appendChild(badge);
     item.appendChild(img);
@@ -292,11 +291,16 @@
     currentFilter = filter;
     const items = grid.querySelectorAll('.gallery-item');
     let visible = 0;
-    items.forEach((item, i) => {
+    items.forEach(item => {
       const show = filter === 'all' || item.dataset.category === filter;
       item.style.display = show ? '' : 'none';
       if (show) {
         visible++;
+        // Renumber: "All Work" uses global index, category view resets to 1
+        const label = item.querySelector('.gallery-num-label');
+        if (label) {
+          label.textContent = filter === 'all' ? item.dataset.globalNum : visible;
+        }
         // Load any still-unloaded images immediately
         const img = item.querySelector('img[data-src]');
         if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); }

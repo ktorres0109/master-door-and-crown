@@ -954,15 +954,17 @@ section { padding: 88px 0; }
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 3px;
+  /* Full bleed — no side padding */
+  width: 100%;
 }
 
 .gallery-item {
   position: relative;
-  border-radius: 2px;
   overflow: hidden;
   cursor: pointer;
   aspect-ratio: 4 / 3;
+  border-radius: 0;
 }
 
 .gallery-item img {
