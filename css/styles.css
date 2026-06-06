@@ -657,16 +657,17 @@ section { padding: 88px 0; }
 }
 
 .city-tag {
-  background: #fff;
-  border: 1px solid var(--color-border);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
   padding: 8px 20px;
   border-radius: 100px;
   font-size: 0.875rem;
-  color: var(--color-text);
+  color: var(--color-text-light);
   font-weight: 500;
   transition: all var(--transition);
   text-decoration: none;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .city-tag:hover {
