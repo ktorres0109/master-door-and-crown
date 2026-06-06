@@ -1183,41 +1183,48 @@ section { padding: 88px 0; }
   object-fit: cover;
 }
 
-.about-philosophy { background: var(--color-bg-warm); }
+.about-philosophy { background: var(--color-bg); }
+.about-philosophy .section-label { color: var(--color-wood-light); }
+.about-philosophy .section-title { color: var(--color-text-light); }
+.about-philosophy .section-subtitle { color: var(--color-text-muted); }
 
 .philosophy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 2px;
   margin-top: 48px;
 }
 
 .philosophy-card {
-  text-align: center;
-  padding: 40px 28px;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: 2px;
-}
-
-.philosophy-icon {
-  width: 56px;
-  height: 56px;
-  background: var(--color-bg-warm);
-  border-radius: 50%;
+  text-align: left;
+  padding: 48px 36px;
+  background: var(--color-surface);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 1.5rem;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.philosophy-card h3 { font-size: 1.1rem; margin-bottom: 12px; }
+.philosophy-num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-wood);
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.philosophy-card h3 {
+  font-size: 1.25rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+  margin: 0;
+}
 
 .philosophy-card p {
-  font-size: 0.9rem;
-  color: var(--color-text-light);
-  line-height: 1.75;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin: 0;
 }
 
 /* Process Steps */
