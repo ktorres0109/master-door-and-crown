@@ -273,7 +273,7 @@
         const j = Math.floor(Math.random() * (i + 1));
         [nums[i], nums[j]] = [nums[j], nums[i]];
       }
-      return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp');
+      return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp?v=2');
     }
     const imgs = getRandomImages('barn-sliding-doors', 4, IMAGE_COUNTS['barn-sliding-doors']);
     const grid = document.getElementById('service-img-preview');
