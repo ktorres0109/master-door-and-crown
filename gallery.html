@@ -217,6 +217,7 @@
     item.className = 'gallery-item';
     item.dataset.category = cat;
     item.dataset.globalNum = globalIdx + 1;
+    item.dataset.col = globalIdx % 4;
     item.setAttribute('role', 'listitem');
     item.setAttribute('tabindex', '0');
     item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
@@ -257,14 +258,25 @@
       }
       obs.unobserve(entry.target);
     });
-  }, { rootMargin: '600px 0px', threshold: 0 });
+  }, { rootMargin: '900px 0px', threshold: 0 });
 
-  // Reveal observer: animate item in when it hits viewport edge
+  // Reveal observer: animate item in when it enters viewport
   const revealObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add('img-visible');
-      obs.unobserve(entry.target);
+      const item = entry.target;
+      const col = parseInt(item.dataset.col || 0);
+      const delay = col * 75;
+      item.style.willChange = 'opacity, transform';
+      item.style.transitionDelay = delay + 'ms';
+      requestAnimationFrame(() => {
+        item.classList.add('img-visible');
+      });
+      item.addEventListener('transitionend', () => {
+        item.style.willChange = 'auto';
+        item.style.transitionDelay = '';
+      }, { once: true });
+      obs.unobserve(item);
     });
   }, { rootMargin: '0px 0px', threshold: 0.05 });
 

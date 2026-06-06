@@ -433,20 +433,16 @@ ul { list-style: none; }
 /* === GALLERY LAZY LOAD ANIMATION === */
 .gallery-item {
   opacity: 0;
-  transform: translateY(20px) scale(0.98);
-  transition: opacity 0.45s ease, transform 0.45s ease;
-  will-change: opacity, transform;
+  transform: translateY(36px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  /* will-change applied only during animation via JS */
 }
 
 .gallery-item.img-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
 }
-
-/* Stagger by position within a row of 4 */
-.gallery-item:nth-child(4n+2) { transition-delay: 0.07s; }
-.gallery-item:nth-child(4n+3) { transition-delay: 0.14s; }
-.gallery-item:nth-child(4n+4) { transition-delay: 0.21s; }
 
 /* === SECTION BASE === */
 section { padding: 88px 0; }
