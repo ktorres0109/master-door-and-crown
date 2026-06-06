@@ -922,41 +922,72 @@ section { padding: 88px 0; }
 /* === GALLERY PAGE === */
 .gallery-section { background: var(--color-bg); }
 
-/* Filter pill tabs */
+/* Filter tab bar — underline style */
 .gallery-filter-tabs {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--color-border);
+  scrollbar-width: none;
 }
+.gallery-filter-tabs::-webkit-scrollbar { display: none; }
 
 .filter-tab {
-  background: var(--color-bg-warm);
+  background: none;
   border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
   color: var(--color-text-muted);
-  padding: 9px 20px;
-  border-radius: 100px;
+  padding: 14px 20px;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: color var(--transition), border-color var(--transition);
   font-family: var(--font-body);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.filter-tab:hover,
+.filter-tab:hover { color: var(--color-text); }
+
 .filter-tab.active {
-  background: var(--color-accent);
+  color: var(--color-wood-light);
+  border-bottom-color: var(--color-wood);
+}
+
+.filter-tab-count {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--color-charcoal);
+  color: var(--color-text-muted);
+  padding: 2px 7px;
+  border-radius: 20px;
+  line-height: 1.4;
+  transition: background var(--transition), color var(--transition);
+}
+
+.filter-tab.active .filter-tab-count {
+  background: var(--color-wood);
   color: #fff;
+}
+
+/* Spacer between tabs and grid */
+.gallery-grid-wrap {
+  margin-top: 3px;
 }
 
 /* Gallery grid */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3px;
+  gap: 2px;
   /* Full bleed — no side padding */
   width: 100%;
+  margin-top: 3px;
 }
 
 .gallery-item {
