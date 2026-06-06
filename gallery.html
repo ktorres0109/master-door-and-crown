@@ -251,24 +251,32 @@
   });
 
   /* ── Lazy load with IntersectionObserver ── */
-  const imgObserver = new IntersectionObserver((entries, obs) => {
+  // Pre-load observer: start network fetch 600px before viewport
+  const preloadObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      const item = entry.target;
-      const img = item.querySelector('img[data-src]');
+      const img = entry.target.querySelector('img[data-src]');
       if (img) {
         img.src = img.dataset.src;
         img.removeAttribute('data-src');
-        img.addEventListener('load', () => item.classList.add('img-visible'), { once: true });
-        img.addEventListener('error', () => item.classList.add('img-visible'), { once: true });
-      } else {
-        item.classList.add('img-visible');
       }
-      obs.unobserve(item);
+      obs.unobserve(entry.target);
     });
-  }, { rootMargin: '200px 0px', threshold: 0 });
+  }, { rootMargin: '600px 0px', threshold: 0 });
 
-  grid.querySelectorAll('.gallery-item').forEach(item => imgObserver.observe(item));
+  // Reveal observer: animate item in when it hits viewport edge
+  const revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('img-visible');
+      obs.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px', threshold: 0.05 });
+
+  grid.querySelectorAll('.gallery-item').forEach(item => {
+    preloadObserver.observe(item);
+    revealObserver.observe(item);
+  });
 
   /* ── Filter (pill tabs) ── */
   const emptyMsg = document.getElementById('gallery-empty');
@@ -279,22 +287,18 @@
     currentFilter = filter;
     const items = grid.querySelectorAll('.gallery-item');
     let visible = 0;
-    items.forEach(item => {
+    items.forEach((item, i) => {
       const show = filter === 'all' || item.dataset.category === filter;
       item.style.display = show ? '' : 'none';
       if (show) {
         visible++;
-        // Re-animate items when shown by filter
-        item.classList.remove('img-visible');
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          item.classList.add('img-visible');
-        }));
-        // Ensure unloaded images get loaded now
+        // Load any still-unloaded images immediately
         const img = item.querySelector('img[data-src]');
-        if (img) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
+        if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
+        // Staggered re-entrance animation
+        item.classList.remove('img-visible');
+        const delay = (visible - 1) % 4 * 70;
+        setTimeout(() => item.classList.add('img-visible'), delay);
       }
     });
     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
