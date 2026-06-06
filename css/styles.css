@@ -1164,8 +1164,27 @@ section { padding: 88px 0; }
 }
 
 .about-pull {
-  position: sticky;
-  top: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.about-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-photo-placeholder span {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0.5;
 }
 
 .about-pull-quote {
@@ -1216,6 +1235,73 @@ section { padding: 88px 0; }
   color: var(--color-text-muted);
   line-height: 1.75;
   margin: 0;
+}
+
+/* Reviews */
+.about-reviews {
+  background: var(--color-bg);
+  padding: 88px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.about-reviews .section-title {
+  color: var(--color-text-light);
+  margin-bottom: 12px;
+}
+
+.about-reviews-note {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 48px;
+  max-width: 540px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.review-card {
+  background: var(--color-surface);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.review-text {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.review-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-wood-light);
+  letter-spacing: 0.05em;
+}
+
+.review-location {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .reviews-grid { grid-template-columns: 1fr; }
 }
 
 /* About Closing */
