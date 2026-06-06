@@ -244,8 +244,13 @@
     badge.className = 'gallery-cat-badge';
     badge.textContent = CATEGORY_LABELS[cat];
 
+    const numLabel = document.createElement('span');
+    numLabel.className = 'gallery-num-label';
+    numLabel.textContent = num;
+
     overlay.appendChild(badge);
     item.appendChild(img);
+    item.appendChild(numLabel);
     item.appendChild(overlay);
     grid.appendChild(item);
   });
