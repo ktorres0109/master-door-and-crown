@@ -1304,6 +1304,34 @@ section { padding: 88px 0; }
   .reviews-grid { grid-template-columns: 1fr; }
 }
 
+/* Gallery teaser on about page */
+.about-gallery-teaser {
+  background: var(--color-dark);
+  padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.about-gallery-teaser-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.about-gallery-teaser .section-title {
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.about-gallery-teaser p {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0;
+}
+
 /* About Closing */
 .about-close {
   background: var(--color-surface);
@@ -1326,6 +1354,24 @@ section { padding: 88px 0; }
   line-height: 1.6;
   margin: 0;
 }
+
+.about-close-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.about-close-phone {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color var(--transition);
+}
+
+.about-close-phone:hover { color: var(--color-wood-light); }
 
 @media (max-width: 768px) {
   .about-body-layout {
