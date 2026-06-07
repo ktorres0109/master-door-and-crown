@@ -1459,40 +1459,35 @@ section { padding: 88px 0; }
 }
 
 /* === SERVICE AREAS PAGE === */
-.service-areas-intro { background: var(--color-bg-warm); padding: 56px 0; text-align: center; }
+.service-areas-intro { background: var(--color-bg); padding: 48px 0; }
 
 .service-areas-intro p {
-  max-width: 640px;
-  margin: 0 auto;
-  font-size: 1.05rem;
-  color: var(--color-text-light);
+  max-width: 600px;
+  font-size: 1rem;
+  color: var(--color-text-muted);
   line-height: 1.8;
 }
 
-.city-cards-section { background: var(--color-bg); }
+.city-cards-section { background: var(--color-bg); padding-bottom: 88px; }
 
 .city-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
   margin-top: 48px;
 }
 
 .city-card {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: 2px;
-  padding: 32px 28px;
-  transition: all var(--transition);
+  background: var(--color-surface);
+  padding: 28px 24px;
+  transition: background var(--transition);
   text-decoration: none;
   display: block;
   color: inherit;
 }
 
 .city-card:hover {
-  border-color: var(--color-wood);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.08);
+  background: var(--color-bg-warm);
   color: inherit;
 }
 
@@ -1500,27 +1495,34 @@ section { padding: 88px 0; }
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .city-card-name {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
-  color: var(--color-dark);
+  font-size: 1.2rem;
+  color: var(--color-text-light);
 }
 
 .city-card-arrow {
   color: var(--color-wood);
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: transform var(--transition);
 }
 
 .city-card:hover .city-card-arrow { transform: translateX(4px); }
 
 .city-card p {
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-  line-height: 1.7;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 768px) {
+  .city-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .city-cards-grid { grid-template-columns: 1fr; }
 }
 
 /* === CONTACT PAGE === */
@@ -2066,24 +2068,20 @@ section { padding: 88px 0; }
 }
 
 .city-service-item {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: 2px;
-  padding: 24px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: 24px 0;
   text-decoration: none;
   display: block;
   color: inherit;
-  transition: all var(--transition);
+  transition: color var(--transition);
 }
 
-.city-service-item:hover {
-  border-color: var(--color-wood);
-  transform: translateY(-2px);
-  color: inherit;
-}
+.city-service-item:hover { color: var(--color-wood-light); }
+.city-service-item:hover h3 { color: var(--color-wood-light); }
 
-.city-service-item h3 { font-size: 1rem; margin-bottom: 6px; }
-.city-service-item p { font-size: 0.875rem; color: var(--color-text-light); line-height: 1.5; }
+.city-service-item h3 { font-size: 1rem; margin-bottom: 6px; color: var(--color-text-light); }
+.city-service-item p { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.6; }
 
 @media (max-width: 600px) {
   .city-services-grid { grid-template-columns: 1fr; }
