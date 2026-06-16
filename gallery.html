@@ -78,14 +78,15 @@
       <!-- Filter tabs stay inside container -->
       <div class="container">
         <div class="gallery-filter-tabs" role="group" aria-label="Filter by door type">
-          <button class="filter-tab active" data-filter="all">All Work <span class="filter-tab-count">128</span></button>
-          <button class="filter-tab" data-filter="entry-doors">Exterior Doors <span class="filter-tab-count">24</span></button>
-          <button class="filter-tab" data-filter="interior-doors">Interior Doors <span class="filter-tab-count">25</span></button>
-          <button class="filter-tab" data-filter="barn-sliding-doors">Barn Doors <span class="filter-tab-count">13</span></button>
-          <button class="filter-tab" data-filter="closet-doors">Closet Doors <span class="filter-tab-count">25</span></button>
-          <button class="filter-tab" data-filter="room-dividers">Room Dividers <span class="filter-tab-count">17</span></button>
-          <button class="filter-tab" data-filter="crown-woodwork">Woodwork &amp; Crown <span class="filter-tab-count">24</span></button>
+          <button class="filter-tab active" data-filter="all">All Work <span class="filter-tab-count" data-count-for="all"></span></button>
+          <button class="filter-tab" data-filter="entry-doors">Exterior Doors <span class="filter-tab-count" data-count-for="entry-doors"></span></button>
+          <button class="filter-tab" data-filter="interior-doors">Interior Doors <span class="filter-tab-count" data-count-for="interior-doors"></span></button>
+          <button class="filter-tab" data-filter="barn-sliding-doors">Barn Doors <span class="filter-tab-count" data-count-for="barn-sliding-doors"></span></button>
+          <button class="filter-tab" data-filter="closet-doors">Closet Doors <span class="filter-tab-count" data-count-for="closet-doors"></span></button>
+          <button class="filter-tab" data-filter="room-dividers">Room Dividers <span class="filter-tab-count" data-count-for="room-dividers"></span></button>
+          <button class="filter-tab" data-filter="crown-woodwork">Woodwork &amp; Crown <span class="filter-tab-count" data-count-for="crown-woodwork"></span></button>
         </div>
+        <p class="gallery-showing" id="gallery-showing"></p>
         <p id="gallery-empty" style="display:none; color: var(--color-text-light); text-align:center; padding: 48px 0; font-size: 1rem;">
           No images in this category yet. Check back soon.
         </p>
@@ -185,6 +186,14 @@
     'crown-woodwork':     24
   };
 
+  /* ── Populate filter tab counts from IMAGE_COUNTS (single source of truth) ── */
+  const totalCount = Object.values(IMAGE_COUNTS).reduce((a, b) => a + b, 0);
+  document.querySelector('[data-count-for="all"]').textContent = totalCount;
+  Object.entries(IMAGE_COUNTS).forEach(([cat, n]) => {
+    const el = document.querySelector('[data-count-for="' + cat + '"]');
+    if (el) el.textContent = n;
+  });
+
   const CATEGORY_LABELS = {
     'entry-doors':        'Exterior Doors',
     'interior-doors':     'Interior Doors',
@@ -217,7 +226,6 @@
     item.className = 'gallery-item';
     item.dataset.category = cat;
     item.dataset.globalNum = globalIdx + 1;
-    item.dataset.col = globalIdx % 4;
     item.setAttribute('role', 'listitem');
     item.setAttribute('tabindex', '0');
     item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
@@ -237,6 +245,10 @@
     badge.className = 'gallery-cat-badge';
     badge.textContent = CATEGORY_LABELS[cat];
 
+    const expandIcon = document.createElement('div');
+    expandIcon.className = 'gallery-expand';
+    expandIcon.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+
     const numLabel = document.createElement('span');
     numLabel.className = 'gallery-num-label';
     numLabel.textContent = globalIdx + 1;
@@ -244,6 +256,7 @@
     overlay.appendChild(badge);
     item.appendChild(img);
     item.appendChild(numLabel);
+    item.appendChild(expandIcon);
     item.appendChild(overlay);
     grid.appendChild(item);
   });
@@ -265,6 +278,7 @@
 
   /* ── Filter (pill tabs) ── */
   const emptyMsg = document.getElementById('gallery-empty');
+  const showingEl = document.getElementById('gallery-showing');
   const filterTabs = document.querySelectorAll('.filter-tab');
   let currentFilter = 'all';
 
@@ -285,6 +299,7 @@
       }
     });
     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
+    if (showingEl) showingEl.textContent = 'Showing ' + visible + ' project' + (visible !== 1 ? 's' : '');
   }
 
   filterTabs.forEach(tab => {
@@ -295,13 +310,16 @@
     });
   });
 
+  // Init showing count
+  applyFilter('all');
+
   /* ── Lightbox ── */
-  const lightbox = document.getElementById('lightbox');
-  const lbImg    = lightbox.querySelector('.lightbox-img');
-  const lbCap    = lightbox.querySelector('.lightbox-caption');
-  const lbPrev   = document.getElementById('lb-prev');
-  const lbNext   = document.getElementById('lb-next');
-  const lbClose  = lightbox.querySelector('.lightbox-close');
+  const lightbox    = document.getElementById('lightbox');
+  const lbImg       = lightbox.querySelector('.lightbox-img');
+  const lbCap       = lightbox.querySelector('.lightbox-caption');
+  const lbPrev      = document.getElementById('lb-prev');
+  const lbNext      = document.getElementById('lb-next');
+  const lbCloseBtn  = lightbox.querySelector('.lightbox-close');
 
   let lbItems = [];
   let lbIdx   = 0;
@@ -323,7 +341,8 @@
   function lbShow() {
     const item = lbItems[lbIdx];
     const img  = item.querySelector('img');
-    lbImg.src = img.src || '';
+    // Use data-src fallback: image may not have loaded yet if user scrolled fast
+    lbImg.src = img.src || img.dataset.src || '';
     lbImg.alt = img.alt;
     const catBadge = item.querySelector('.gallery-cat-badge');
     lbCap.textContent = catBadge ? catBadge.textContent : img.alt;
@@ -332,7 +351,7 @@
     lbNext.style.display = single ? 'none' : '';
   }
 
-  function lbClose_() {
+  function lbClose() {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
     lbImg.src = '';
@@ -367,15 +386,15 @@
 
   lbPrev.addEventListener('click', lbPrevFn);
   lbNext.addEventListener('click', lbNextFn);
-  lbClose.addEventListener('click', lbClose_);
+  lbCloseBtn.addEventListener('click', lbClose);
 
   lightbox.addEventListener('click', e => {
-    if (e.target === lightbox) lbClose_();
+    if (e.target === lightbox) lbClose();
   });
 
   document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape')     lbClose_();
+    if (e.key === 'Escape')     lbClose();
     if (e.key === 'ArrowLeft')  lbPrevFn();
     if (e.key === 'ArrowRight') lbNextFn();
   });
