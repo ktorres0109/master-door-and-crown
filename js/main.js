@@ -38,12 +38,12 @@
 /* === ACTIVE NAV STATE === */
 (function setActiveNav() {
   const path = window.location.pathname;
-  const page = path.split('/').pop() || 'index.html';
+  const page = (path.split('/').pop() || 'index').replace(/\.html$/, '');
 
   document.querySelectorAll('.nav-link[data-page]').forEach(link => {
     const match = link.dataset.page === page ||
-      (page === '' && link.dataset.page === 'index.html') ||
-      (page === '/' && link.dataset.page === 'index.html');
+      (page === '' && link.dataset.page === 'index') ||
+      (page === '/' && link.dataset.page === 'index');
     link.classList.toggle('active', match);
   });
 })();
