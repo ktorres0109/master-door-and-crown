@@ -223,11 +223,10 @@
     item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
 
     const img = document.createElement('img');
-    img.src = R2_BASE + '/' + cat + '/' + num + '.webp?v=2';
+    img.dataset.src = R2_BASE + '/' + cat + '/' + num + '.webp?v=2';
     img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA';
     img.width = 600;
     img.height = 450;
-    img.loading = 'lazy';
     img.decoding = 'async';
     img.addEventListener('load', () => img.classList.add('loaded'));
 
@@ -249,7 +248,20 @@
     grid.appendChild(item);
   });
 
-  /* ── Images use native loading="lazy" — no observer needed ── */
+  /* ── Custom lazy loader: starts fetching 1500px before viewport ── */
+  const imgObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target.querySelector('img[data-src]');
+      if (img) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+      }
+      imgObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px 1500px 0px' });
+
+  grid.querySelectorAll('.gallery-item').forEach(item => imgObserver.observe(item));
 
   /* ── Filter (pill tabs) ── */
   const emptyMsg = document.getElementById('gallery-empty');

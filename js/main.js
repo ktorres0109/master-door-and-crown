@@ -125,7 +125,7 @@
 
   // Dynamically add .reveal to elements that don't have it yet
   const autoRevealSelectors = [
-    '.service-tile', '.gallery-preview-item', '.gallery-item',
+    '.service-tile', '.gallery-preview-item',
     '.philosophy-card', '.process-step', '.city-card',
     '.psych-card', '.service-detail-img', '.city-service-item',
     '.section-header', '.cta-strip'
