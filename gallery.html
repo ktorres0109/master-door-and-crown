@@ -32,7 +32,7 @@
           src="https://images.masterdoorandcrown.com/logo/logo-nav.webp"
           alt="Master Door and Crown — Custom Wood Doors Ventura County"
           height="56"
-          width="auto"
+          
           loading="eager">
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
@@ -118,7 +118,7 @@
             src="https://images.masterdoorandcrown.com/logo/logo.webp"
             alt="Master Door and Crown"
             height="80"
-            width="auto"
+            
             loading="lazy">
         </div>
       
@@ -144,8 +144,8 @@
         <div class="footer-col">
           <p class="footer-col-heading">Services</p>
           <ul class="footer-links">
-            <li><a href="/services#exterior">Exterior Doors</a></li>
-            <li><a href="/services#interior">Interior Doors</a></li>
+            <li><a href="/services#entry-doors">Exterior Doors</a></li>
+            <li><a href="/services#interior-doors">Interior Doors</a></li>
             <li><a href="/services#barn-doors">Barn Doors</a></li>
             <li><a href="/services#crown-moulding">Crown Moulding &amp; Trim</a></li>
           </ul>
@@ -160,7 +160,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="footer-copyright">&copy; 2025 Master Door and Crown. All rights reserved.</p>
+        <p class="footer-copyright">&copy; 2026 Master Door and Crown. All rights reserved.</p>
         <div class="footer-legal-links"><a href="/privacy-policy">Privacy Policy</a> <span aria-hidden="true">&middot;</span> <a href="/terms">Terms of Service</a></div>
         <p class="footer-legal">Master Door and Crown works in collaboration with licensed contractors where California law requires it. Contractor license requirements vary by project scope.</p>
       </div>
@@ -310,8 +310,18 @@
     });
   });
 
-  // Init showing count
-  applyFilter('all');
+  // Init: apply URL param filter if present (?filter=entry-doors), else show all
+  const urlFilter = new URLSearchParams(window.location.search).get('filter');
+  if (urlFilter && IMAGE_COUNTS[urlFilter]) {
+    const matchingTab = [...filterTabs].find(t => t.dataset.filter === urlFilter);
+    if (matchingTab) {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      matchingTab.classList.add('active');
+    }
+    applyFilter(urlFilter);
+  } else {
+    applyFilter('all');
+  }
 
   /* ── Lightbox ── */
   const lightbox    = document.getElementById('lightbox');

@@ -48,30 +48,13 @@
   });
 })();
 
-/* === GALLERY FILTER (legacy filter-btn support) === */
-(function initGalleryFilter() {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  if (!filterBtns.length) return;
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-      galleryItems.forEach(item => {
-        const show = filter === 'all' || item.dataset.category === filter;
-        item.style.display = show ? '' : 'none';
-      });
-    });
-  });
-})();
 
 /* === LIGHTBOX === */
 (function initLightbox() {
   const lightbox = document.getElementById('lightbox');
   if (!lightbox) return;
+  // gallery.html manages its own full lightbox with prev/next — don't double-bind
+  if (document.getElementById('gallery-grid')) return;
 
   const lightboxImg = lightbox.querySelector('.lightbox-img');
   const lightboxCaption = lightbox.querySelector('.lightbox-caption');
@@ -155,37 +138,6 @@
     .forEach(el => observer.observe(el));
 })();
 
-/* === ANIMATED COUNTERS === */
-(function initCounters() {
-  if (!window.IntersectionObserver) return;
-
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const duration = 1800;
-    const step = target / (duration / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) {
-        el.textContent = target;
-        clearInterval(timer);
-      } else {
-        el.textContent = Math.floor(current);
-      }
-    }, 16);
-  }
-
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        animateCounter(e.target);
-        counterObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
-})();
 
 /* === NAV DROPDOWN (mobile touch) === */
 (function initNavDropdown() {
@@ -242,35 +194,65 @@
   });
 })();
 
-/* === CONTACT FORM VALIDATION === */
+/* === CONTACT FORM === */
 (function initContactForm() {
   const form = document.getElementById('estimate-form');
   if (!form) return;
 
-  form.addEventListener('submit', function(e) {
-    const requiredFields = form.querySelectorAll('[required]');
+  function validate() {
     let valid = true;
-
-    requiredFields.forEach(field => {
-      if (!field.value.trim()) {
-        field.style.borderColor = '#c0392b';
-        valid = false;
-      } else {
-        field.style.borderColor = '';
-      }
+    form.querySelectorAll('[required]').forEach(field => {
+      const empty = !field.value.trim();
+      field.style.borderColor = empty ? '#c0392b' : '';
+      if (empty) valid = false;
     });
-
     if (!valid) {
-      e.preventDefault();
-      const firstInvalid = form.querySelector('[required]:invalid, [style*="c0392b"]');
-      if (firstInvalid) firstInvalid.focus();
+      const first = form.querySelector('[style*="c0392b"]');
+      if (first) first.focus();
     }
-  });
+    return valid;
+  }
 
   form.querySelectorAll('[required]').forEach(field => {
     field.addEventListener('input', () => {
       if (field.value.trim()) field.style.borderColor = '';
     });
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const btn = form.querySelector('[type="submit"]');
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form)
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        form.innerHTML = [
+          '<div style="text-align:center;padding:48px 24px;">',
+          '<p style="font-size:2rem;margin-bottom:12px;">✓</p>',
+          '<h3 style="margin-bottom:8px;">Request Received</h3>',
+          '<p style="color:var(--color-text-light);">We\'ll be in touch within one business day.</p>',
+          '</div>'
+        ].join('');
+      } else {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        alert('Something went wrong. Please call us at (805) 404-0751 or email info@masterdoorandcrown.com.');
+      }
+    } catch (_) {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      alert('Network error. Please call us at (805) 404-0751 or email info@masterdoorandcrown.com.');
+    }
   });
 })();
 
