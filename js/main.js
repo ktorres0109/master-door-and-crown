@@ -2,6 +2,9 @@
    Master Door and Crown — Main JavaScript
    ============================================================ */
 
+// Mark JS as loaded — CSS uses this to un-hide .reveal elements on old browsers
+document.documentElement.classList.add('js-loaded');
+
 /* === MOBILE NAVIGATION === */
 (function initNav() {
   const hamburger = document.getElementById('nav-hamburger');
@@ -111,7 +114,7 @@
     '.service-tile', '.gallery-preview-item',
     '.philosophy-card', '.process-step', '.city-card',
     '.psych-card', '.service-detail-img', '.city-service-item',
-    '.section-header', '.cta-strip'
+    '.section-header'
   ];
 
   autoRevealSelectors.forEach(sel => {
@@ -261,28 +264,28 @@
   const items = document.querySelectorAll('.faq-item');
   if (!items.length) return;
 
-  items.forEach(item => {
-    const trigger = item.querySelector('.faq-question');
-    if (!trigger) return;
-
-    trigger.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-      items.forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    });
-
-    trigger.setAttribute('aria-expanded', 'false');
-    const answer = item.querySelector('.faq-answer');
-    if (answer) answer.setAttribute('aria-hidden', 'true');
-  });
-
-  document.addEventListener('click', () => {
+  function syncAria() {
     items.forEach(i => {
       const open = i.classList.contains('open');
       const trigger = i.querySelector('.faq-question');
       const answer = i.querySelector('.faq-answer');
       if (trigger) trigger.setAttribute('aria-expanded', String(open));
       if (answer) answer.setAttribute('aria-hidden', String(!open));
+    });
+  }
+
+  items.forEach(item => {
+    const trigger = item.querySelector('.faq-question');
+    if (!trigger) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    const answer = item.querySelector('.faq-answer');
+    if (answer) answer.setAttribute('aria-hidden', 'true');
+
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      items.forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+      syncAria();
     });
   });
 })();
