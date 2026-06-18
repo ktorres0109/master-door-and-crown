@@ -42,11 +42,13 @@ document.documentElement.classList.add('js-loaded');
 (function setActiveNav() {
   const path = window.location.pathname;
   const page = (path.split('/').pop() || 'index').replace(/\.html$/, '');
+  const isCityPage = path.startsWith('/cities/') || path.startsWith('/areas/');
 
   document.querySelectorAll('.nav-link[data-page]').forEach(link => {
     const match = link.dataset.page === page ||
       (page === '' && link.dataset.page === 'index') ||
-      (page === '/' && link.dataset.page === 'index');
+      (page === '/' && link.dataset.page === 'index') ||
+      (isCityPage && link.dataset.page === 'service-areas');
     link.classList.toggle('active', match);
   });
 })();

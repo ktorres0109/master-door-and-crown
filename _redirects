@@ -14,6 +14,18 @@
 /services/closet-doors.html /services/closet-doors 301
 /services/room-dividers.html /services/room-dividers 301
 /services/crown-woodwork.html /services/crown-woodwork 301
+# Consolidate legacy areas/ → cities/ (duplicate content fix)
+/areas/ventura /cities/ventura 301
+/areas/oxnard /cities/oxnard 301
+/areas/thousand-oaks /cities/thousand-oaks 301
+/areas/camarillo /cities/camarillo 301
+/areas/simi-valley /cities/simi-valley 301
+/areas/moorpark /cities/moorpark 301
+/areas/santa-paula /cities/santa-paula 301
+/areas/fillmore /cities/fillmore 301
+/areas/port-hueneme /cities/port-hueneme 301
+/areas/ojai /cities/ojai 301
+
 /areas/camarillo.html /areas/camarillo 301
 /areas/fillmore.html /areas/fillmore 301
 /areas/moorpark.html /areas/moorpark 301

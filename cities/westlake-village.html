@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Master Door and Crown","url":"https://www.masterdoorandcrown.com","telephone":"(805) 404-0751","email":"info@masterdoorandcrown.com","address":{"@type":"PostalAddress","addressLocality":"Westlake Village","addressRegion":"CA","addressCountry":"US"},"areaServed":"Westlake Village, CA"}
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Master Door and Crown","url":"https://www.masterdoorandcrown.com","telephone":"+18054040751","image":"https://images.masterdoorandcrown.com/logo/logo.webp","email":"info@masterdoorandcrown.com","address":{"@type":"PostalAddress","addressLocality":"Westlake Village","addressRegion":"CA","addressCountry":"US"},"areaServed":"Westlake Village, CA"}
   </script>
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 </head>
@@ -38,9 +38,9 @@
           loading="eager">
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-        <a href="/" class="nav-link">Home</a>
+        <a href="/" class="nav-link" data-page="index">Home</a>
         <div class="nav-dropdown">
-          <a href="/services" class="nav-link nav-dropdown-trigger">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
+          <a href="/services" class="nav-link nav-dropdown-trigger" data-page="services">Services <span class="dropdown-caret" aria-hidden="true">&#9660;</span></a>
           <div class="nav-dropdown-menu">
             <a href="/services/entry-doors" class="nav-dropdown-item">Exterior Doors</a>
             <a href="/services/interior-doors" class="nav-dropdown-item">Interior Doors</a>
@@ -50,10 +50,10 @@
             <a href="/services/crown-woodwork" class="nav-dropdown-item">Woodwork &amp; Crown</a>
           </div>
         </div>
-        <a href="/gallery" class="nav-link">Gallery</a>
-        <a href="/about" class="nav-link">About</a>
-        <a href="/service-areas" class="nav-link active">Service Areas</a>
-        <a href="/contact" class="nav-link nav-cta">Free Estimate</a>
+        <a href="/gallery" class="nav-link" data-page="gallery">Gallery</a>
+        <a href="/about" class="nav-link" data-page="about">About</a>
+        <a href="/service-areas" class="nav-link" data-page="service-areas">Service Areas</a>
+        <a href="/contact" class="nav-link nav-cta" data-page="contact">Free Estimate</a>
       </nav>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
