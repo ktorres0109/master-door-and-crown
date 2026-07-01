@@ -313,21 +313,23 @@ ul { list-style: none; }
 
 .hero-eyebrow {
   display: block;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  letter-spacing: 0.02em;
+  text-transform: none;
   color: var(--color-wood-light);
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
 }
 
 .hero-title {
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
   color: #fff;
   max-width: 680px;
   margin-bottom: 20px;
-  line-height: 1.15;
-  font-weight: 700;
+  line-height: 1.4;
+  font-weight: 400;
 }
 
 .hero-title em {
