@@ -298,6 +298,6 @@ document.documentElement.classList.add('js-loaded');
   btn.href = 'tel:+18054040751';
   btn.className = 'sticky-call-btn';
   btn.setAttribute('aria-label', 'Call Master Door and Crown at (805) 404-0751');
-  btn.textContent = '📞 Call (805) 404-0751';
+  btn.textContent = 'Call (805) 404-0751';
   document.body.appendChild(btn);
 })();
