@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.masterdoorandcrown.com/sitemap.xml
+Sitemap: https://masterdoorandcrown.com/sitemap.xml
+Sitemap: https://masterdoorandcrown.com/sitemap-images.xml

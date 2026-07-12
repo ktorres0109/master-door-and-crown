@@ -229,6 +229,21 @@ ul { list-style: none; }
   color: #fff;
 }
 
+.nav-link.nav-phone {
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 6px;
+}
+
+.nav-link.nav-phone:hover { color: #E2BA6A; }
+
+/* Not enough header room for the number on narrow desktops/tablets;
+   mobile menu (≤768px) stacks vertically so it fits there again */
+@media (min-width: 769px) and (max-width: 1099px) {
+  .nav-link.nav-phone { display: none; }
+}
+
 .nav-link.nav-cta {
   background: var(--color-wood);
   color: #fff;

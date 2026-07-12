@@ -3,55 +3,55 @@
 
   <!-- Core pages -->
   <url>
-    <loc>https://www.masterdoorandcrown.com/</loc>
+    <loc>https://masterdoorandcrown.com/</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/services</loc>
+    <loc>https://masterdoorandcrown.com/services</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/gallery</loc>
+    <loc>https://masterdoorandcrown.com/gallery</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/about</loc>
+    <loc>https://masterdoorandcrown.com/about</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/service-areas</loc>
+    <loc>https://masterdoorandcrown.com/service-areas</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/contact</loc>
+    <loc>https://masterdoorandcrown.com/contact</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/faq</loc>
+    <loc>https://masterdoorandcrown.com/faq</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/privacy-policy</loc>
+    <loc>https://masterdoorandcrown.com/privacy-policy</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/terms</loc>
+    <loc>https://masterdoorandcrown.com/terms</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -59,37 +59,37 @@
 
   <!-- Service pages -->
   <url>
-    <loc>https://www.masterdoorandcrown.com/services/entry-doors</loc>
+    <loc>https://masterdoorandcrown.com/services/entry-doors</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/services/interior-doors</loc>
+    <loc>https://masterdoorandcrown.com/services/interior-doors</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/services/barn-sliding-doors</loc>
+    <loc>https://masterdoorandcrown.com/services/barn-sliding-doors</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/services/closet-doors</loc>
+    <loc>https://masterdoorandcrown.com/services/closet-doors</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/services/room-dividers</loc>
+    <loc>https://masterdoorandcrown.com/services/room-dividers</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/services/crown-woodwork</loc>
+    <loc>https://masterdoorandcrown.com/services/crown-woodwork</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -97,85 +97,85 @@
 
   <!-- City pages (cities/) -->
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/ventura</loc>
+    <loc>https://masterdoorandcrown.com/cities/ventura</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/oxnard</loc>
+    <loc>https://masterdoorandcrown.com/cities/oxnard</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/thousand-oaks</loc>
+    <loc>https://masterdoorandcrown.com/cities/thousand-oaks</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/camarillo</loc>
+    <loc>https://masterdoorandcrown.com/cities/camarillo</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/simi-valley</loc>
+    <loc>https://masterdoorandcrown.com/cities/simi-valley</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/moorpark</loc>
+    <loc>https://masterdoorandcrown.com/cities/moorpark</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/santa-paula</loc>
+    <loc>https://masterdoorandcrown.com/cities/santa-paula</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/fillmore</loc>
+    <loc>https://masterdoorandcrown.com/cities/fillmore</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/port-hueneme</loc>
+    <loc>https://masterdoorandcrown.com/cities/port-hueneme</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/ojai</loc>
+    <loc>https://masterdoorandcrown.com/cities/ojai</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/newbury-park</loc>
+    <loc>https://masterdoorandcrown.com/cities/newbury-park</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/oak-park</loc>
+    <loc>https://masterdoorandcrown.com/cities/oak-park</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/westlake-village</loc>
+    <loc>https://masterdoorandcrown.com/cities/westlake-village</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.masterdoorandcrown.com/cities/somis</loc>
+    <loc>https://masterdoorandcrown.com/cities/somis</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
