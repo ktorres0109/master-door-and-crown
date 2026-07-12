@@ -138,16 +138,19 @@
             <li><a href="/gallery">Gallery</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/service-areas">Service Areas</a></li>
+            <li><a href="/faq">FAQ</a></li>
             <li><a href="/contact">Free Estimate</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <p class="footer-col-heading">Services</p>
           <ul class="footer-links">
-            <li><a href="/services#entry-doors">Exterior Doors</a></li>
-            <li><a href="/services#interior-doors">Interior Doors</a></li>
-            <li><a href="/services#barn-doors">Barn Doors</a></li>
-            <li><a href="/services#crown-moulding">Crown Moulding &amp; Trim</a></li>
+            <li><a href="/services/entry-doors">Exterior Doors</a></li>
+            <li><a href="/services/interior-doors">Interior Doors</a></li>
+            <li><a href="/services/barn-sliding-doors">Barn Doors</a></li>
+            <li><a href="/services/closet-doors">Closet Doors</a></li>
+            <li><a href="/services/room-dividers">Room Dividers</a></li>
+            <li><a href="/services/crown-woodwork">Woodwork &amp; Crown</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -200,7 +203,7 @@
     'barn-sliding-doors': 'Barn Doors',
     'closet-doors':       'Closet Doors',
     'room-dividers':      'Room Dividers',
-    'crown-woodwork':     'Crown \u0026 Woodwork'
+    'crown-woodwork':     'Woodwork \u0026 Crown'
   };
 
   /* ── Build interleaved all-images array (newest first per category) ── */
@@ -230,6 +233,9 @@
     item.setAttribute('tabindex', '0');
     item.setAttribute('aria-label', 'View: ' + CATEGORY_LABELS[cat] + ' ' + num);
 
+    const figure = document.createElement('div');
+    figure.className = 'gallery-item-img';
+
     const img = document.createElement('img');
     img.dataset.src = R2_BASE + '/' + cat + '/' + num + '.webp?v=2';
     img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA';
@@ -238,43 +244,51 @@
     img.decoding = 'async';
     img.addEventListener('load', () => img.classList.add('loaded'));
 
-    const overlay = document.createElement('div');
-    overlay.className = 'gallery-overlay';
-
-    const badge = document.createElement('span');
-    badge.className = 'gallery-cat-badge';
-    badge.textContent = CATEGORY_LABELS[cat];
-
     const expandIcon = document.createElement('div');
     expandIcon.className = 'gallery-expand';
     expandIcon.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
 
-    const numLabel = document.createElement('span');
-    numLabel.className = 'gallery-num-label';
-    numLabel.textContent = globalIdx + 1;
+    // Always-visible caption \u2014 hover overlays never show on touch screens
+    const caption = document.createElement('div');
+    caption.className = 'gallery-caption';
+    const capCat = document.createElement('span');
+    capCat.className = 'gallery-caption-cat';
+    capCat.textContent = CATEGORY_LABELS[cat];
+    const capNum = document.createElement('span');
+    capNum.className = 'gallery-caption-num';
+    caption.appendChild(capCat);
+    caption.appendChild(capNum);
 
-    overlay.appendChild(badge);
-    item.appendChild(img);
-    item.appendChild(numLabel);
-    item.appendChild(expandIcon);
-    item.appendChild(overlay);
+    figure.appendChild(img);
+    figure.appendChild(expandIcon);
+    item.appendChild(figure);
+    item.appendChild(caption);
     grid.appendChild(item);
   });
 
   /* ── Custom lazy loader: starts fetching 1500px before viewport ── */
-  const imgObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const img = entry.target.querySelector('img[data-src]');
-      if (img) {
-        img.src = img.dataset.src;
-        img.removeAttribute('data-src');
-      }
-      imgObserver.unobserve(entry.target);
-    });
-  }, { rootMargin: '0px 0px 1500px 0px' });
+  if ('IntersectionObserver' in window) {
+    const imgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const img = entry.target.querySelector('img[data-src]');
+        if (img) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        imgObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px 1500px 0px' });
 
-  grid.querySelectorAll('.gallery-item').forEach(item => imgObserver.observe(item));
+    grid.querySelectorAll('.gallery-item').forEach(item => imgObserver.observe(item));
+  } else {
+    // Fallback: no IntersectionObserver — load everything via native lazy loading
+    grid.querySelectorAll('img[data-src]').forEach(img => {
+      img.loading = 'lazy';
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    });
+  }
 
   /* ── Filter (pill tabs) ── */
   const emptyMsg = document.getElementById('gallery-empty');
@@ -285,28 +299,41 @@
   function applyFilter(filter) {
     currentFilter = filter;
     const items = grid.querySelectorAll('.gallery-item');
+    const perCatTotal = filter === 'all' ? totalCount : IMAGE_COUNTS[filter];
     let visible = 0;
     items.forEach(item => {
       const show = filter === 'all' || item.dataset.category === filter;
       item.style.display = show ? '' : 'none';
       if (show) {
         visible++;
-        // Renumber: "All Work" uses global index, category view resets to 1
-        const label = item.querySelector('.gallery-num-label');
-        if (label) {
-          label.textContent = filter === 'all' ? item.dataset.globalNum : visible;
-        }
+        const capNum = item.querySelector('.gallery-caption-num');
+        if (capNum) capNum.textContent = visible + ' / ' + perCatTotal;
       }
     });
     emptyMsg.style.display = visible === 0 ? 'block' : 'none';
-    if (showingEl) showingEl.textContent = 'Showing ' + visible + ' project' + (visible !== 1 ? 's' : '');
+    if (showingEl) {
+      showingEl.textContent = filter === 'all'
+        ? 'Showing all ' + visible + ' projects'
+        : 'Showing ' + visible + ' project' + (visible !== 1 ? 's' : '');
+    }
   }
 
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       filterTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      applyFilter(tab.dataset.filter);
+      // Brief fade so the reflow doesn't feel like a glitch
+      grid.classList.add('filtering');
+      setTimeout(() => {
+        applyFilter(tab.dataset.filter);
+        grid.classList.remove('filtering');
+        // Keep the tabs in view — filtering from deep in the page otherwise
+        // strands the user in the footer
+        const tabsTop = document.querySelector('.gallery-filter-tabs').getBoundingClientRect().top;
+        if (tabsTop < 0) {
+          document.querySelector('.gallery-section').scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
     });
   });
 
@@ -331,8 +358,9 @@
   const lbNext      = document.getElementById('lb-next');
   const lbCloseBtn  = lightbox.querySelector('.lightbox-close');
 
-  let lbItems = [];
-  let lbIdx   = 0;
+  let lbItems  = [];
+  let lbIdx    = 0;
+  let lbOpener = null; // element to restore focus to on close
 
   function getVisibleItems() {
     return [...grid.querySelectorAll('.gallery-item')].filter(
@@ -341,11 +369,13 @@
   }
 
   function lbOpen(items, idx) {
-    lbItems = items;
-    lbIdx   = idx;
+    lbItems  = items;
+    lbIdx    = idx;
+    lbOpener = document.activeElement;
     lbShow();
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    lbCloseBtn.focus();
   }
 
   function lbShow() {
@@ -354,17 +384,28 @@
     // Use data-src fallback: image may not have loaded yet if user scrolled fast
     lbImg.src = img.src || img.dataset.src || '';
     lbImg.alt = img.alt;
-    const catBadge = item.querySelector('.gallery-cat-badge');
-    lbCap.textContent = catBadge ? catBadge.textContent : img.alt;
+    const capCat = item.querySelector('.gallery-caption-cat');
+    lbCap.textContent = (capCat ? capCat.textContent : img.alt) +
+      ' — ' + (lbIdx + 1) + ' of ' + lbItems.length;
     const single = lbItems.length <= 1;
     lbPrev.style.display = single ? 'none' : '';
     lbNext.style.display = single ? 'none' : '';
+    // Warm the cache for the neighbors so arrows feel instant
+    [lbIdx - 1, lbIdx + 1].forEach(i => {
+      const n = lbItems[(i + lbItems.length) % lbItems.length];
+      if (!n) return;
+      const nImg = n.querySelector('img');
+      const src = nImg.src || nImg.dataset.src;
+      if (src) { const pre = new Image(); pre.src = src; }
+    });
   }
 
   function lbClose() {
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
     lbImg.src = '';
+    if (lbOpener && document.contains(lbOpener)) lbOpener.focus();
+    lbOpener = null;
   }
 
   function lbPrevFn() {
@@ -408,6 +449,23 @@
     if (e.key === 'ArrowLeft')  lbPrevFn();
     if (e.key === 'ArrowRight') lbNextFn();
   });
+
+  /* ── Swipe navigation on touch screens ── */
+  let touchX = null, touchY = null;
+  lightbox.addEventListener('touchstart', e => {
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    touchX = touchY = null;
+    // Horizontal swipe → prev/next; ignore mostly-vertical gestures
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx > 0) lbPrevFn(); else lbNextFn();
+    }
+  }, { passive: true });
   </script>
 
 

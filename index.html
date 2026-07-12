@@ -34,7 +34,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/theme-light.css">
 
   <!-- LocalBusiness JSON-LD -->
   <script type="application/ld+json">
@@ -67,7 +66,8 @@
     ],
     "serviceType": [
       "Custom Exterior Doors", "Custom Interior Doors",
-      "Barn Doors", "Crown Moulding", "Custom Wood Trim"
+      "Barn Doors", "Closet Doors", "Room Dividers",
+      "Crown Moulding", "Custom Wood Trim"
     ],
     "openingHours": ["Mo-Fr 08:00-18:00"],
     "sameAs": []
@@ -176,6 +176,28 @@
               <span class="service-tile-footer">Learn More &rarr;</span>
             </div>
           </a>
+          <a href="/services/closet-doors" class="service-tile">
+            <div class="service-tile-img">
+              <img src="https://images.masterdoorandcrown.com/closet-doors/1.webp?v=2" alt="Custom closet doors — Master Door and Crown, Ventura County CA" loading="lazy">
+            </div>
+            <div class="service-tile-body">
+              <span class="service-tile-tag">Storage</span>
+              <h3>Closet Doors</h3>
+              <p>The most-used doors in the house. Solid wood bypass, bifold, and wardrobe fronts on hardware built for daily use.</p>
+              <span class="service-tile-footer">Learn More &rarr;</span>
+            </div>
+          </a>
+          <a href="/services/room-dividers" class="service-tile">
+            <div class="service-tile-img">
+              <img src="https://images.masterdoorandcrown.com/room-dividers/1.webp?v=2" alt="Custom room divider panels — Master Door and Crown, Ventura County CA" loading="lazy">
+            </div>
+            <div class="service-tile-body">
+              <span class="service-tile-tag">Open Plan</span>
+              <h3>Room Dividers</h3>
+              <p>Separation without framing a wall. Sliding and folding panels that turn one big space into two useful ones.</p>
+              <span class="service-tile-footer">Learn More &rarr;</span>
+            </div>
+          </a>
           <a href="/services/crown-woodwork" class="service-tile">
             <div class="service-tile-img">
               <img src="https://images.masterdoorandcrown.com/crown-woodwork/1.webp?v=2" alt="Custom crown moulding and wood trim — Master Door and Crown, Ventura County CA" loading="lazy">
@@ -238,7 +260,7 @@
               <span class="craft-stat-label">Years of Experience</span>
             </div>
             <div class="craft-stat">
-              <span class="craft-stat-num">150+</span>
+              <span class="craft-stat-num">500+</span>
               <span class="craft-stat-label">Projects Completed</span>
             </div>
             <div class="craft-stat">
@@ -337,16 +359,19 @@
             <li><a href="/gallery">Gallery</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/service-areas">Service Areas</a></li>
+            <li><a href="/faq">FAQ</a></li>
             <li><a href="/contact">Free Estimate</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <p class="footer-col-heading">Services</p>
           <ul class="footer-links">
-            <li><a href="/services#entry-doors">Exterior Doors</a></li>
-            <li><a href="/services#interior-doors">Interior Doors</a></li>
-            <li><a href="/services#barn-doors">Barn Doors</a></li>
-            <li><a href="/services#crown-moulding">Crown Moulding &amp; Trim</a></li>
+            <li><a href="/services/entry-doors">Exterior Doors</a></li>
+            <li><a href="/services/interior-doors">Interior Doors</a></li>
+            <li><a href="/services/barn-sliding-doors">Barn Doors</a></li>
+            <li><a href="/services/closet-doors">Closet Doors</a></li>
+            <li><a href="/services/room-dividers">Room Dividers</a></li>
+            <li><a href="/services/crown-woodwork">Woodwork &amp; Crown</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -380,6 +405,7 @@
     'interior-doors':     25,
     'barn-sliding-doors': 13,
     'closet-doors':       25,
+    'room-dividers':      17,
     'crown-woodwork':     24
   };
 
@@ -396,10 +422,11 @@
   }
 
   const previewImages = [
-    ...getRandomImages('entry-doors',        2, IMAGE_COUNTS['entry-doors']),
-    ...getRandomImages('barn-sliding-doors', 1, IMAGE_COUNTS['barn-sliding-doors']),
+    ...getRandomImages('entry-doors',        1, IMAGE_COUNTS['entry-doors']),
     ...getRandomImages('interior-doors',     1, IMAGE_COUNTS['interior-doors']),
+    ...getRandomImages('barn-sliding-doors', 1, IMAGE_COUNTS['barn-sliding-doors']),
     ...getRandomImages('closet-doors',       1, IMAGE_COUNTS['closet-doors']),
+    ...getRandomImages('room-dividers',      1, IMAGE_COUNTS['room-dividers']),
     ...getRandomImages('crown-woodwork',     1, IMAGE_COUNTS['crown-woodwork'])
   ];
 
@@ -408,6 +435,7 @@
     'interior-doors':     'Custom interior door',
     'barn-sliding-doors': 'Custom barn door',
     'closet-doors':       'Custom closet door',
+    'room-dividers':      'Custom room divider',
     'crown-woodwork':     'Custom crown moulding'
   };
 

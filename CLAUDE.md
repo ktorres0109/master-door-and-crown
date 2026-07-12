@@ -25,11 +25,16 @@ Plain HTML + CSS + vanilla JS. No build step.
 Deploys to Cloudflare Pages from GitHub main branch.
 
 ## Design System
-- Dark background/nav: #1a1a1a
-- Wood accent: #8B5E3C
-- Page background: #FAF8F5
-- Headings: Playfair Display (Google Fonts)
-- Body: Inter (Google Fonts)
+Palette is derived from the brand logo (sage door, gold ring, cream field).
+All tokens are CSS variables at the top of css/styles.css — change them there, not inline.
+- Page background: #FAF7F2 (warm cream); cards/panels: #FFFFFF
+- Text: #2B2B28 (warm charcoal); muted: #57534A
+- Gold accent (--color-wood/--color-gold): #A87E38, hover #8C6A2F
+- Sage green (--color-sage / --color-sage-dark): #7E9084 / #5F7365
+- Deep green (--color-dark) for header, footer, and dark accent bands: #232A24
+- Headings: Cormorant Garamond (Google Fonts)
+- Body: DM Sans (Google Fonts)
+- css/theme-dark-archive.css is a frozen copy of the old navy theme, used only by old-home.html — never edit it
 
 ## Images
 All images served from Cloudflare R2. WebP format only.
@@ -43,7 +48,9 @@ Never reference Unsplash or external image URLs in final production code.
 - about.html — Craftsman story + process
 - service-areas.html — 10-city service area hub
 - contact.html — Free estimate form
-- areas/ — Individual city stub pages
+- cities/ — Individual city pages (14, the canonical set)
+- areas/ — LEGACY duplicates of cities/, 301-redirected via _redirects; kept so indexed URLs never break — don't edit or delete
+- old-home.html — archived pre-redesign homepage (noindex)
 - faq.html — FAQ accordion
 - privacy-policy.html — Privacy policy
 - terms.html — Terms of service

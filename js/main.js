@@ -205,17 +205,14 @@ document.documentElement.classList.add('js-loaded');
   if (!form) return;
 
   function validate() {
-    let valid = true;
+    let firstInvalid = null;
     form.querySelectorAll('[required]').forEach(field => {
       const empty = !field.value.trim();
       field.style.borderColor = empty ? '#c0392b' : '';
-      if (empty) valid = false;
+      if (empty && !firstInvalid) firstInvalid = field;
     });
-    if (!valid) {
-      const first = form.querySelector('[style*="c0392b"]');
-      if (first) first.focus();
-    }
-    return valid;
+    if (firstInvalid) firstInvalid.focus();
+    return !firstInvalid;
   }
 
   form.querySelectorAll('[required]').forEach(field => {
