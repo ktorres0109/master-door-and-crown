@@ -11,7 +11,7 @@
   <meta property="og:title" content="Custom Door Gallery | Master Door and Crown | Ventura County, CA">
   <meta property="og:description" content="Custom wood doors and trim built from scratch for Ventura County homes. View our portfolio.">
   <meta property="og:url" content="https://masterdoorandcrown.com/gallery">
-  <meta property="og:image" content="https://images.masterdoorandcrown.com/entry-doors/1.webp">
+  <meta property="og:image" content="https://images.masterdoorandcrown.com/cdn-cgi/image/width=1200,quality=82,format=auto/entry-doors/1.webp">
   <meta property="og:site_name" content="Master Door and Crown">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -181,6 +181,15 @@
      ============================================================ */
   const R2_BASE = 'https://images.masterdoorandcrown.com';
 
+  /* Cloudflare Image Transformations — serve right-sized variants instead
+     of multi-MB originals (some are 4K+). Requires Transformations enabled
+     on the zone. */
+  const tf = (cat, num, w) =>
+    R2_BASE + '/cdn-cgi/image/width=' + w + ',quality=82,format=auto/' + cat + '/' + num + '.webp';
+  const tfSrcset = (cat, num) =>
+    [400, 600, 800].map(w => tf(cat, num, w) + ' ' + w + 'w').join(', ');
+  const TILE_SIZES = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+
   const IMAGE_COUNTS = {
     'entry-doors':        24,
     'interior-doors':     25,
@@ -238,7 +247,10 @@
     figure.className = 'gallery-item-img';
 
     const img = document.createElement('img');
-    img.dataset.src = R2_BASE + '/' + cat + '/' + num + '.webp?v=2';
+    img.dataset.src = tf(cat, num, 600);
+    img.dataset.srcset = tfSrcset(cat, num);
+    img.sizes = TILE_SIZES;
+    item.dataset.large = tf(cat, num, 1600); // lightbox-size variant
     img.alt = 'Custom ' + CATEGORY_LABELS[cat] + ' by Master Door and Crown \u2014 Ventura County, CA';
     img.width = 600;
     img.height = 450;
@@ -274,6 +286,7 @@
         if (!entry.isIntersecting) return;
         const img = entry.target.querySelector('img[data-src]');
         if (img) {
+          if (img.dataset.srcset) img.srcset = img.dataset.srcset;
           img.src = img.dataset.src;
           img.removeAttribute('data-src');
         }
@@ -286,6 +299,7 @@
     // Fallback: no IntersectionObserver — load everything via native lazy loading
     grid.querySelectorAll('img[data-src]').forEach(img => {
       img.loading = 'lazy';
+      if (img.dataset.srcset) img.srcset = img.dataset.srcset;
       img.src = img.dataset.src;
       img.removeAttribute('data-src');
     });
@@ -383,7 +397,7 @@
     const item = lbItems[lbIdx];
     const img  = item.querySelector('img');
     // Use data-src fallback: image may not have loaded yet if user scrolled fast
-    lbImg.src = img.src || img.dataset.src || '';
+    lbImg.src = item.dataset.large || img.src || img.dataset.src || '';
     lbImg.alt = img.alt;
     const capCat = item.querySelector('.gallery-caption-cat');
     lbCap.textContent = (capCat ? capCat.textContent : img.alt) +
@@ -396,7 +410,7 @@
       const n = lbItems[(i + lbItems.length) % lbItems.length];
       if (!n) return;
       const nImg = n.querySelector('img');
-      const src = nImg.src || nImg.dataset.src;
+      const src = n.dataset.large || nImg.src || nImg.dataset.src;
       if (src) { const pre = new Image(); pre.src = src; }
     });
   }

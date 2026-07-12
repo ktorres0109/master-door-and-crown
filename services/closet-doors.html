@@ -281,7 +281,7 @@
         const j = Math.floor(Math.random() * (i + 1));
         [nums[i], nums[j]] = [nums[j], nums[i]];
       }
-      return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/' + category + '/' + n + '.webp?v=2');
+      return nums.slice(0, Math.min(count, total)).map(n => R2_BASE + '/cdn-cgi/image/width=600,quality=82,format=auto/' + category + '/' + n + '.webp');
     }
     const imgs = getRandomImages('closet-doors', 4, IMAGE_COUNTS['closet-doors']);
     const grid = document.getElementById('service-img-preview');
